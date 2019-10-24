@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@drawable/bg_top_bar"
+        android:id="@+id/rl_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/tv_logo"
+            android:text="我"
+            android:textSize="@dimen/dp_17"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <TextView
+        android:textColor="@color/white"
+        android:paddingLeft="@dimen/dp_17"
+        android:drawablePadding="@dimen/dp_10"
+        android:drawableLeft="@drawable/ic_mine_logo"
+        android:id="@+id/tv_username"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100" />
+    <View
+        android:background="@drawable/bg_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_5"
+        android:id="@+id/ll_devices_manage"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_blue_setting" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="设备管理"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/line_color" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_version_info"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_blue_tips" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="版本信息"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_privacy_policy"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_blue_tips" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="隐私声明"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/tv_commit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/btn_blue_selector"
+        android:gravity="center"
+        android:text="登出"
+        android:textColor="@color/white" />
+</LinearLayout>

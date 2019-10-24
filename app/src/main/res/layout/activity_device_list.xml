@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_top_bar" />
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart_layout"
+        android:layout_below="@+id/include"
+        app:srlEnableLoadMore="false"
+        android:layout_above="@+id/tv_commit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_news"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <TextView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_commit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/btn_blue_selector"
+        android:gravity="center"
+        android:text="添加设备"
+        android:visibility="gone"
+        android:textColor="@color/white" />
+</RelativeLayout>

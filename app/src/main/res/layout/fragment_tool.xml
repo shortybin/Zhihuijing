@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rl_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_top_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="10dp"
+            android:text="工具"
+            android:textSize="@dimen/dp_17"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_oval_white"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_home_top">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_calender"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="开始日期" />
+
+            <TextView
+                android:id="@+id/tv_date_start"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_stroke"
+                android:drawableRight="@drawable/ic_blue_arrow_down"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_calender"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="结束日期" />
+
+            <TextView
+                android:id="@+id/tv_date_end"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@drawable/bg_gray_stroke"
+                android:drawableRight="@drawable/ic_blue_arrow_down"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:textColor="@color/main_color" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_money"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="单        价" />
+
+            <EditText
+                android:id="@+id/tv_price"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:background="@drawable/bg_gray_stroke"
+                android:drawablePadding="@dimen/dp_5"
+                android:inputType="numberDecimal"
+                android:lines="1"
+                android:maxLines="1"
+                android:paddingLeft="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:drawablePadding="@dimen/dp_5"
+                android:paddingRight="@dimen/dp_10"
+                android:text="元/小时" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_commit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_blue_selector"
+        android:gravity="center"
+        android:text="计算"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/tv_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:drawableLeft="@drawable/ic_blue_time"
+        android:drawablePadding="@dimen/dp_5"
+        android:text="使用时长：--小时"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_commit" />
+
+    <TextView
+        android:id="@+id/tv_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_money"
+        android:drawablePadding="@dimen/dp_5"
+        android:text="账单金额：---元"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_duration" />
+
+
+</android.support.constraint.ConstraintLayout>

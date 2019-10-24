@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:background="@drawable/bg_top_bar"
+        android:id="@+id/rl_home_top"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+        <TextView
+            android:id="@+id/tv_logo"
+            android:text="公告"
+            android:textSize="@dimen/dp_17"
+            android:paddingBottom="10dp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_notice_title"
+        android:padding="@dimen/dp_10"
+        android:textSize="@dimen/dp_17"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_3"
+        android:background="@color/janna"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:background="@color/janna"
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/dp_100"
+        android:maxHeight="@dimen/dp_200"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_5"
+        android:id="@+id/ll_remote_switch"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_remote_switch" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="远程开关"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/line_color" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_circuit_reform"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_circuit_reform" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="电路改造"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:background="@color/line_color" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_machine_maintain"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:padding="@dimen/dp_3"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:src="@drawable/ic_blue_cautious" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="机井维护"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/include"
+        layout="@layout/layout_top_bar" />
+
+    <TextView
+        android:text="设备编号"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:id="@+id/tv_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="设备名称"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_name"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="计价单位"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/et_price"
+            android:maxLines="1"
+            android:inputType="number"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:text="元/小时"
+            android:padding="@dimen/activity_horizontal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_modify"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="@dimen/dp_20"
+            android:id="@+id/tv_commit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@drawable/btn_blue_selector"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_20"
+            android:id="@+id/tv_delete"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_add_device"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:background="@drawable/btn_blue_selector"
+        android:gravity="center"
+        android:text="添加设备"
+        android:textColor="@color/white" />
+
+
+
+</LinearLayout>

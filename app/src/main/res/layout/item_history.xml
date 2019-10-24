@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_oval_white"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp_10"
+    android:layout_marginLeft="@dimen/dp_10"
+    android:layout_marginRight="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_10"
+    android:id="@+id/ll_history"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="设备名称"
+        android:textSize="@dimen/dp_18"
+        android:textColor="@color/text_title_color"
+        android:id="@+id/tv_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_10"
+        android:text="计价单位"
+        android:textSize="@dimen/dp_14"
+        android:id="@+id/tv_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="开始时间"
+        android:textSize="@dimen/dp_14"
+        android:id="@+id/tv_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="结束时间"
+        android:textSize="@dimen/dp_14"
+        android:id="@+id/tv_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="使用时长"
+        android:textSize="@dimen/dp_14"
+        android:id="@+id/tv_duration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="@dimen/dp_3"
+        android:text="交易金额"
+        android:textSize="@dimen/dp_14"
+        android:id="@+id/tv_cost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
