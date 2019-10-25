@@ -43,12 +43,11 @@ public class WebPageActivity extends AppCompatActivity {
 
     private void initData() {
         url = getIntent().getStringExtra("url");
-//        String title = getIntent().getStringExtra("title");
-//        if (!TextUtils.isEmpty(title))
-//            tvTopTitle.setText(title);
-//        else {
-//            tvTopTitle.setText("智慧井");
-//        }
+        String title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+            tvTopTitle.setText(title);
+        }
+
         CustomUtils.configureWebView(mWebView);
         mWebView.setWebViewClient(new WebViewClient() {
 

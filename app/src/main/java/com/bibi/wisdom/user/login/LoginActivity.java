@@ -1,6 +1,7 @@
 package com.bibi.wisdom.user.login;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bibi.wisdom.R;
+import com.bibi.wisdom.WebPageActivity;
 import com.bibi.wisdom.bean.UserLoginBean;
 import com.bibi.wisdom.main.MainActivity;
 import com.bibi.wisdom.mvp.MVPBaseActivity;
@@ -103,7 +105,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         return true;
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_commit, R.id.tv_forget_pwd, R.id.tv_register})
+    @OnClick({R.id.iv_back, R.id.tv_commit, R.id.tv_forget_pwd, R.id.tv_register,R.id.user_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -120,6 +122,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             case R.id.tv_register:
                 goPage(RegisterActivity.class);
                 break;
+            case R.id.user_protocol:
+                startActivity(new Intent(getContext(), WebPageActivity.class).putExtra("url", "http://www.huahuazn.com/RegisterProtocol.html"));
         }
     }
 }
