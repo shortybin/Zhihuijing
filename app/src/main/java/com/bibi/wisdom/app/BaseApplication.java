@@ -1,6 +1,7 @@
 package com.bibi.wisdom.app;
 
-import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.bibi.wisdom.utils.cache.ShareData;
 import com.uuzuche.lib_zxing.ZApplication;
@@ -10,16 +11,22 @@ public class BaseApplication extends ZApplication {
     private static BaseApplication app;
 
     @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
-        app=this;
+        app = this;
         RxTool.init(this);
         ShareData.init(this);
 //        initImagePicker();
     }
 
 
-    public static BaseApplication getInstance(){
+    public static BaseApplication getInstance() {
         return app;
     }
 

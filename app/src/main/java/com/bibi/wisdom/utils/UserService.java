@@ -16,12 +16,6 @@ public class UserService {
 
     private static final String USER_INFO = "userInfo";
 
-    private static final String INIT_INFO = "initConfig";
-
-    private static final String AUTO_LOGIN = "autoLogin";
-
-    private static final String OPEN_WELCOME = "openWelcome";
-
     private static SharedPreferencesUtil spUtil=new SharedPreferencesUtil(BaseApplication.getInstance(),"wisdom");
 
 
@@ -71,29 +65,6 @@ public class UserService {
 
         return  gson.fromJson(userJson, UserLoginBean.class);
     }
-
-
-
-    /**
-     * 判断是否打开欢迎导航页
-     *
-     * @return
-     */
-    public static boolean isOpenLaunch() {
-
-        String autoLoginJson = (String) spUtil.getData(OPEN_WELCOME);
-
-        return TextUtils.equals("1", autoLoginJson);
-    }
-
-    /***
-     * 设置是否打开欢迎导航页
-     */
-    public static void setOpenLaunch(String open) {
-        spUtil.setData(OPEN_WELCOME, open);
-    }
-
-
 
 
     public static boolean isLogin(){
