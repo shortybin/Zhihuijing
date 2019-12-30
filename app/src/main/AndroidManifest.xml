@@ -13,7 +13,8 @@
     com.aliyun.iot.breeze.ota,com.aliyun.iot.breeze.sdk,com.aliyun.iot.ble,com.aliyun.alink.business.devicecenter.extbone,
     alink.rncontainer,com.horcrux.svg,com.facebook.react,com.aliyun.alink.sdk.rn.external,com.vondear.rxtool,
     com.vondear.rxui,com.aliyun.iot.aep.sdk.bridge,com.aliyun.alink.linksdk.alcs,com.aliyun.alink.linksdk.alcs.lpbs,
-    com.aliyun.alink.linksdk.channel.core,com.aliyun.alink.external.widget,org.chromium.v8,com.aliyun.alink.linksdk.paho" />
+    com.aliyun.alink.linksdk.channel.core,com.aliyun.alink.external.widget,org.chromium.v8,com.aliyun.alink.linksdk.pah,
+    com.facebook" />
 
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -119,6 +120,20 @@
             <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+
+        <receiver
+            android:name=".receiver.PushReceiver"
+            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </receiver>
 
 
         <meta-data
