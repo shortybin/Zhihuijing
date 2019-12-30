@@ -10,25 +10,6 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/background_color</item>
         <item name="android:textSize">@dimen/dp_16</item>
-
-        <!-- 开启过渡效果 -->
-        <!--<item name="android:windowContentTransitions">true</item>-->
-
-
-        <!-- 指定界面进入/退出动画效果 -->
-        <!--<item name="android:windowEnterTransition">@transition/fade_in</item>-->
-        <!--<item name="android:windowExitTransition">@transition/image_transition</item>-->
-
-        <item name="android:windowAnimationStyle">@style/activityAnimation</item>
-    </style>
-
-
-    <!-- animation 样式 -->
-    <style name="activityAnimation" parent="@android:style/Animation">
-        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/slide_out_exit_anim</item>
-        <item name="android:activityCloseEnterAnimation">@anim/slide_close_enter_anim</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

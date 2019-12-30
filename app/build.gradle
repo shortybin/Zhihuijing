@@ -157,5 +157,5 @@ dependencies {
 
 //    implementation 'com.guge.libs:imagemodule:1.0.0'
 
-    implementation project(':imagemodule')
+    //implementation project(':imagemodule')
 }
