@@ -34,6 +34,7 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup,icon"
         tools:ignore="GoogleAppIndexingWarning">
 
 
@@ -89,13 +90,6 @@
         <activity
             android:name=".main.maintain.maintainlist.MaintainListActivity"
             android:screenOrientation="portrait" />
-
-
-        <activity
-            android:name="com.bibi.wisdom.movie.PreviewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity android:name="com.bibi.wisdom.ProMosaicActivity"></activity>
 
         <receiver
