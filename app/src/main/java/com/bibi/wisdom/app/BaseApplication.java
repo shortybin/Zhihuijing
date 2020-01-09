@@ -41,7 +41,7 @@ public class BaseApplication extends AApplication {
         RxTool.init(this);
         ShareData.init(this);
 
-        init(this);
+        //init(this);
     }
 
 

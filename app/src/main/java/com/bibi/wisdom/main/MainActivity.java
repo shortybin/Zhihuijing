@@ -68,16 +68,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initTab();
-
-
-        //bindVirturalToUser("a1RRWSEUgLd", "L6kvz2pS0ErW8Sjh4x8p");
-
-        // 启动插件
-        Bundle bundle = new Bundle();
-        bundle.putString("productKey", "a1RRWSEUgLd");
-        Router.getInstance().toUrlForResult(this, "link://router/connectConfig", 1, bundle);
-
-
     }
 
     // 接收配网结果
@@ -129,7 +119,6 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
     @Override
     public void onTabChanged(String tabId) {
-
         updateTab();
     }
 

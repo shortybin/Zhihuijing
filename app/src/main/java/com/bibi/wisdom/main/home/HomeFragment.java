@@ -1,14 +1,17 @@
 package com.bibi.wisdom.main.home;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +25,7 @@ import com.bibi.wisdom.main.device.DeviceActivity;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.utils.GlideBannerImageLoader;
 import com.bibi.wisdom.utils.IKeys;
+import com.bibi.wisdom.utils.LogUtils;
 import com.bibi.wisdom.utils.RxBus;
 import com.bibi.wisdom.utils.ToastUtil;
 import com.bibi.wisdom.view.CommonDialog;
@@ -49,6 +53,8 @@ import io.reactivex.functions.Consumer;
 public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresenter> implements HomeContract.View {
     public static final int REQUEST_DEVICE = 111;
 
+    @BindView(R.id.content)
+    LinearLayout mLinearLayout;
     @BindView(R.id.roll_view_pager)
     Banner banner;
     @BindView(R.id.iv_setting)
@@ -80,7 +86,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     private int deviceIndex = 0;
     private DeviceInfoBean deviceInfoBean; //当前设备状态
 
-    private boolean needRefresh=false;
+    private boolean needRefresh = false;
 
     private Disposable disposable;
 
@@ -90,28 +96,28 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         return R.layout.fragment_switch;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void init() {
         initBanner();
         mPresenter.getBanner();
         mPresenter.getDeviceList();
 
-        disposable=RxBus.get().toObservable(HomeRefreshBean.class).subscribe(consumer);
+        disposable = RxBus.get().toObservable(HomeRefreshBean.class).subscribe(consumer);
+
+        mLinearLayout.setOnTouchListener((v, event) -> {
+            refreshDeviceInfo();
+            return false;
+        });
     }
 
-    Consumer<HomeRefreshBean> consumer=new Consumer<HomeRefreshBean>(){
-
-        @Override
-        public void accept(HomeRefreshBean homeRefreshBean) throws Exception {
-            needRefresh=true;
-        }
-    };
+    Consumer<HomeRefreshBean> consumer = homeRefreshBean -> needRefresh = true;
 
 
     @Override
     public void onResume() {
         super.onResume();
-        if(needRefresh){
+        if (needRefresh) {
             mPresenter.getDeviceList();
         }
     }
@@ -149,9 +155,9 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @Override
     public void onDetach() {
         super.onDetach();
-        if(disposable!=null&&!disposable.isDisposed()){
+        if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
-            disposable=null;
+            disposable = null;
         }
     }
 
@@ -185,6 +191,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
         commonDialog.show();
     }
+
     //确认关闭
     public void confirmCloseDialog() {
         CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "确定关闭设备？"
@@ -206,7 +213,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         if (TextUtils.isEmpty(timeUnit))
             timeUnit = "小时";
         tvPrice.setText(bean.getPrice() + "元/" + timeUnit);
-        tvDeviceName.setText("当前设备："+bean.getProductName());
+        tvDeviceName.setText("当前设备：" + bean.getProductName());
         int status = deviceInfoBean.getEqstatus();
         if (status == 0) {
             tvStatus.setText("状态：关闭");
@@ -226,7 +233,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     private void resetDevice() {
         rlController.setVisibility(View.INVISIBLE);
         tvDeviceName.setText("当前设备：--");
-        tvPrice.setText( "--元/小时");
+        tvPrice.setText("--元/小时");
         tvStatus.setText("状态：--");
     }
 
@@ -254,16 +261,12 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     public void getDeviceSuccess(DeviceListBean bean) {
         list.clear();
         list.addAll(bean.getUserproductlist());
-        if (list.size() > deviceIndex) {
-            mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
-        } else {
-            resetDevice();
-        }
+        refreshDeviceInfo();
     }
 
     @Override
     public void getDeviceFail(String message) {
-        ToastUtil.showToast(getContext(),message);
+        ToastUtil.showToast(getContext(), message);
         resetDevice();
     }
 
@@ -275,30 +278,38 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     @Override
     public void getDeviceInfoFail(String message) {
-        ToastUtil.showToast(getContext(),message);
+        ToastUtil.showToast(getContext(), message);
         resetDevice();
     }
 
     @Override
     public void openDeviceSuccess() {
-        ToastUtil.showToast(getContext(),"打开成功");
-        mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
+        ToastUtil.showToast(getContext(), "打开成功");
+        ivOpen.setImageResource(R.drawable.ic_close_inactive);
+        ivClose.setImageResource(R.drawable.ic_open_active);
+        tvStatus.setText("状态：开启");
+        ivOpen.setClickable(false);
+        ivClose.setClickable(true);
     }
 
     @Override
     public void openDeviceFail(String message) {
-        ToastUtil.showToast(getContext(),message);
+        ToastUtil.showToast(getContext(), message);
     }
 
     @Override
     public void closeDeviceSuccess() {
-        ToastUtil.showToast(getContext(),"关闭成功");
-        mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
+        ToastUtil.showToast(getContext(), "关闭成功");
+        tvStatus.setText("状态：关闭");
+        ivOpen.setImageResource(R.drawable.ic_close_active);
+        ivClose.setImageResource(R.drawable.ic_close_inactive);
+        ivOpen.setClickable(true);
+        ivClose.setClickable(false);
     }
 
     @Override
     public void closeDeviceFail(String message) {
-        ToastUtil.showToast(getContext(),message);
+        ToastUtil.showToast(getContext(), message);
     }
 
 
@@ -307,15 +318,23 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_DEVICE:
-                if(resultCode!= Activity.RESULT_OK)
+                if (resultCode != Activity.RESULT_OK)
                     return;
-                if(data!=null){
-                    deviceIndex=data.getIntExtra(IKeys.KEY_INDEX,0);
+                if (data != null) {
+                    deviceIndex = data.getIntExtra(IKeys.KEY_INDEX, 0);
                     if (list.size() > deviceIndex) {
                         mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
                     }
                 }
                 break;
+        }
+    }
+
+    public void refreshDeviceInfo() {
+        if (list.size() > deviceIndex) {
+            mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
+        } else {
+            resetDevice();
         }
     }
 }

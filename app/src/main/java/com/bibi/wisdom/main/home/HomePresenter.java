@@ -70,7 +70,7 @@ public class HomePresenter extends BasePresenterImpl<HomeContract.View> implemen
                 mView.getDeviceInfoFail(err);
             }
         };
-        SubscribeHandler.observeOn(ob,new ProgressSubscriber(listener, ((Fragment) mView).getActivity(),true));
+        SubscribeHandler.observeOn(ob,new ProgressSubscriber(listener, ((Fragment) mView).getActivity(),false));
     }
 
     @Override
