@@ -61,7 +61,7 @@ public class BaseApplication extends AApplication {
                 .setProductEnv(IoTSmart.PRODUCT_ENV_DEV)
                 // 是否打开日志
                 .setDebug(true);
-        GlobalConfig.getInstance().setApiEnv(GlobalConfig.API_ENV_TEST);
+        GlobalConfig.getInstance().setApiEnv(GlobalConfig.API_ENV_ONLINE);
         GlobalConfig.getInstance().setBoneEnv(GlobalConfig.BONE_ENV_TEST);
 
         IoTSmart.getCountryList(new IoTSmart.ICountryListGetCallBack() {
