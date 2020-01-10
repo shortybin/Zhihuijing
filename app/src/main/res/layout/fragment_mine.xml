@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
-        android:background="@drawable/bg_top_bar"
         android:id="@+id/rl_home_top"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:background="@drawable/bg_top_bar">
+
         <TextView
             android:id="@+id/tv_logo"
-            android:text="我"
-            android:textSize="@dimen/dp_17"
-            android:paddingBottom="10dp"
-            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:paddingBottom="10dp"
+            android:text="我"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_17" />
     </RelativeLayout>
 
     <TextView
-        android:textColor="@color/white"
-        android:paddingLeft="@dimen/dp_17"
-        android:drawablePadding="@dimen/dp_10"
-        android:drawableLeft="@drawable/ic_mine_logo"
         android:id="@+id/tv_username"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_100"
+        android:background="@drawable/bg_top_bar"
+        android:drawableLeft="@drawable/ic_mine_logo"
+        android:drawablePadding="@dimen/dp_10"
         android:gravity="center_vertical"
-        android:background="@drawable/bg_top_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_100" />
+        android:paddingLeft="@dimen/dp_17"
+        android:textColor="@color/white" />
+
     <View
-        android:background="@drawable/bg_top_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_80"/>
+        android:layout_height="@dimen/dp_80"
+        android:background="@drawable/bg_top_bar" />
 
 
     <LinearLayout
-        android:layout_marginTop="@dimen/dp_5"
         android:id="@+id/ll_devices_manage"
-        style="@style/SettingItem">
+        style="@style/SettingItem"
+        android:layout_marginTop="@dimen/dp_5">
 
         <ImageView
-            android:padding="@dimen/dp_3"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:background="@color/gray1"
+            android:padding="@dimen/dp_3"
             android:src="@drawable/ic_blue_setting" />
 
         <TextView
@@ -76,10 +79,10 @@
         style="@style/SettingItem">
 
         <ImageView
-            android:padding="@dimen/dp_3"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:background="@color/gray1"
+            android:padding="@dimen/dp_3"
             android:src="@drawable/ic_blue_tips" />
 
         <TextView
@@ -103,10 +106,10 @@
         style="@style/SettingItem">
 
         <ImageView
-            android:padding="@dimen/dp_3"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
             android:background="@color/gray1"
+            android:padding="@dimen/dp_3"
             android:src="@drawable/ic_blue_tips" />
 
         <TextView
@@ -125,10 +128,37 @@
             android:src="@drawable/ic_arrow_right_small" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_delect_user"
+        style="@style/SettingItem">
+
+        <ImageView
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="@dimen/dp_25"
+            android:background="@color/gray1"
+            android:padding="@dimen/dp_3"
+            android:src="@drawable/ic_blue_tips" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="10dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:text="注销账号"
+            android:textColor="#565662"
+            android:textSize="@dimen/text_size_mid_x" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_right_small" />
+    </LinearLayout>
+
     <Space
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/tv_commit"

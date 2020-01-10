@@ -7,7 +7,7 @@ import com.bibi.wisdom.mvp.BaseView;
 
 /**
  * MVPPlugin
- *  邮箱 784787081@qq.com
+ * 邮箱 784787081@qq.com
  */
 
 public class MineContract {
@@ -16,9 +16,15 @@ public class MineContract {
 
 
         void logoutFail(String message);
+
+        void delectUserSuccess();
+
+        void delectUserFail(String message);
     }
 
-    interface  Presenter extends BasePresenter<View> {
+    interface Presenter extends BasePresenter<View> {
         void logout();
+
+        void delectUser();
     }
 }

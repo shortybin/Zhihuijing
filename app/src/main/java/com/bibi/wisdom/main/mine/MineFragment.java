@@ -45,6 +45,8 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     LinearLayout llVersionInfo;
     @BindView(R.id.tv_commit)
     TextView tvCommit;
+    @BindView(R.id.ll_delect_user)
+    LinearLayout mDelectUser;
     Unbinder unbinder;
 
     @Override
@@ -54,7 +56,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
     @Override
     protected void init() {
-        if(UserService.getUserInfo()!=null)
+        if (UserService.getUserInfo() != null)
             tvUsername.setText(UserService.getUserInfo().getAccountInfo().getPhone());
     }
 
@@ -71,11 +73,11 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_devices_manage, R.id.ll_version_info, R.id.tv_commit,R.id.ll_privacy_policy})
+    @OnClick({R.id.ll_devices_manage, R.id.ll_version_info, R.id.tv_commit, R.id.ll_privacy_policy, R.id.ll_delect_user})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_devices_manage:
-                startActivity(new Intent(getActivity(), DeviceActivity.class).putExtra(IKeys.KEY_TYPE,DeviceActivity.TYPE_MANAGE));
+                startActivity(new Intent(getActivity(), DeviceActivity.class).putExtra(IKeys.KEY_TYPE, DeviceActivity.TYPE_MANAGE));
                 break;
             case R.id.ll_version_info:
                 startActivity(new Intent(getActivity(), AboutUsActivity.class));
@@ -86,13 +88,16 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             case R.id.tv_commit:
                 confirmDialog();
                 break;
+            case R.id.ll_delect_user:
+                delectDialog();
+                break;
         }
     }
 
     @Override
     public void logoutSuccess() {
         UserService.logout();
-        Intent intent=new Intent(getContext(),LoginActivity.class);
+        Intent intent = new Intent(getContext(), LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -102,12 +107,36 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
         RxToast.showToast(message);
     }
 
+    @Override
+    public void delectUserSuccess() {
+        UserService.logout();
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void delectUserFail(String message) {
+        RxToast.showToast(message);
+    }
+
 
     public void confirmDialog() {
-        CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "确定退出？" , "取消", "确定", null, new CommonDialog.CallBackListener() {
+        CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "确定退出？", "取消", "确定", null, new CommonDialog.CallBackListener() {
             @Override
             public void callBack() {
                 mPresenter.logout();
+            }
+        });
+
+        commonDialog.show();
+    }
+
+    public void delectDialog() {
+        CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "确定注销用户？", "取消", "确定", null, new CommonDialog.CallBackListener() {
+            @Override
+            public void callBack() {
+                mPresenter.delectUser();
             }
         });
 

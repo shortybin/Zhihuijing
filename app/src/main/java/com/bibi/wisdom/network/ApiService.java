@@ -30,33 +30,45 @@ public interface ApiService {
     //首页banner
     @GET("common/homebanners")
     Observable<BaseBean<BannerBean>> getBanner();
+
     //历史
     @GET("security/productrecord/list")
     Observable<BaseBean<HistoryBean>> getHistoryList();
+
     //我的设备列表
     @GET("security/userproduct/userproductlist")
     Observable<BaseBean<DeviceListBean>> getDeviceList();
+
     //我的设备状态
     @GET("security/userproduct/findeqstatustbyid")
     Observable<BaseBean<DeviceInfoBean>> getDeviceInfo(@Query("id") String id);
+
     //打开设备
     @GET("security/userproduct/openimmediately")
     Observable<BaseBean> openDevice(@Query("id") String id);
+
     //关闭设备
     @GET("security/userproduct/closeimmediately")
     Observable<BaseBean> closeDevice(@Query("id") String id);
+
     //解绑设备
     @POST("security/userproduct/unbindproduct")
     Observable<BaseBean> unbindDevice(@Query("productId") String id);
+
     //绑定
     @POST("security/userproduct/bindproduct")
-    Observable<BaseBean> bindDevice(@Query("productCode") String id,@Query("productName") String name,@Query("priceStr") String price);
+    Observable<BaseBean> bindDevice(@Query("productCode") String id, @Query("productName") String name, @Query("priceStr") String price);
+
     //修改设备
     @POST("security/userproduct/modifybindproduct")
-    Observable<BaseBean> modifyDevice(@Query("id") String id,@Query("productName") String name,@Query("priceStr") String price);
+    Observable<BaseBean> modifyDevice(@Query("id") String id, @Query("productName") String name, @Query("priceStr") String price);
+
     //联系人列表
     @GET("security/contact/findcontact")
-    Observable<BaseBean<MaintainListBean>> getMaintainList(@Query("type") int type);;
+    Observable<BaseBean<MaintainListBean>> getMaintainList(@Query("type") int type);
+
+    ;
+
     //公告列表 公告类型，1,2
     @POST("security/notice/findnoticelist")
     Observable<BaseBean<NoticeBean>> getNoticeList(@Query("type") int type);
@@ -65,9 +77,13 @@ public interface ApiService {
     @GET("user/logout")
     Observable<BaseBean> logout();
 
+    @POST("security/user/accountLogout")
+    Observable<BannerBean> delectUser(@Query("phone") String phone);
+
     //注册
     @POST("user/register")
     Observable<BaseBean<UserLoginBean>> registerUser(@Query("phone") String phone, @Query("pwd") String password, @Query("random") String captcha);
+
     //重置密码
     @POST("user/forgetbysv")
     Observable<BaseBean> resetPassword(@Query("phone") String phone, @Query("pwd") String password, @Query("random") String captcha);
