@@ -133,7 +133,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     }
 
     public void delectDialog() {
-        CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "确定注销用户？", "取消", "确定", null, new CommonDialog.CallBackListener() {
+        CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "注销用户将清除账号及账号内的所有信息，确认注销吗？", "取消", "确定", null, new CommonDialog.CallBackListener() {
             @Override
             public void callBack() {
                 mPresenter.delectUser();

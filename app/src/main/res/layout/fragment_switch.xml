@@ -90,7 +90,7 @@
 
         <ImageView
             android:id="@+id/iv_open"
-            android:src="@drawable/ic_close_active"
+            android:src="@drawable/ic_open_inactive"
             android:layout_width="@dimen/dp_120"
             android:layout_height="@dimen/dp_120" />
 
@@ -105,7 +105,7 @@
 
         <ImageView
             android:id="@+id/iv_close"
-            android:src="@drawable/ic_close_inactive"
+            android:src="@drawable/ic_open_active"
             android:layout_alignParentRight="true"
             android:layout_width="@dimen/dp_120"
             android:layout_height="@dimen/dp_120" />

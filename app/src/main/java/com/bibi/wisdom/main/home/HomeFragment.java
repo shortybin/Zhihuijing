@@ -120,6 +120,15 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         if (needRefresh) {
             mPresenter.getDeviceList();
         }
+        refreshDeviceInfo();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (!hidden){
+            refreshDeviceInfo();
+        }
+        super.onHiddenChanged(hidden);
     }
 
     private void initBanner() {
@@ -217,13 +226,13 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         int status = deviceInfoBean.getEqstatus();
         if (status == 0) {
             tvStatus.setText("状态：关闭");
-            ivOpen.setImageResource(R.drawable.ic_close_active);
-            ivClose.setImageResource(R.drawable.ic_close_inactive);
+            ivOpen.setImageResource(R.drawable.ic_close_inactive);
+            ivClose.setImageResource(R.drawable.ic_open_active);
             ivOpen.setClickable(true);
             ivClose.setClickable(false);
         } else {
-            ivOpen.setImageResource(R.drawable.ic_close_inactive);
-            ivClose.setImageResource(R.drawable.ic_open_active);
+            ivOpen.setImageResource(R.drawable.ic_close_active);
+            ivClose.setImageResource(R.drawable.ic_close_inactive);
             tvStatus.setText("状态：开启");
             ivOpen.setClickable(false);
             ivClose.setClickable(true);
@@ -285,8 +294,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @Override
     public void openDeviceSuccess() {
         ToastUtil.showToast(getContext(), "打开成功");
-        ivOpen.setImageResource(R.drawable.ic_close_inactive);
-        ivClose.setImageResource(R.drawable.ic_open_active);
+        ivOpen.setImageResource(R.drawable.ic_close_active);
+        ivClose.setImageResource(R.drawable.ic_close_inactive);
         tvStatus.setText("状态：开启");
         ivOpen.setClickable(false);
         ivClose.setClickable(true);
@@ -301,8 +310,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     public void closeDeviceSuccess() {
         ToastUtil.showToast(getContext(), "关闭成功");
         tvStatus.setText("状态：关闭");
-        ivOpen.setImageResource(R.drawable.ic_close_active);
-        ivClose.setImageResource(R.drawable.ic_close_inactive);
+        ivOpen.setImageResource(R.drawable.ic_close_inactive);
+        ivClose.setImageResource(R.drawable.ic_open_active);
         ivOpen.setClickable(true);
         ivClose.setClickable(false);
     }

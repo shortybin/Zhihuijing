@@ -7,13 +7,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.aliyun.iot.aep.sdk.login.ILoginCallback;
-import com.aliyun.iot.aep.sdk.login.LoginBusiness;
 import com.bibi.wisdom.main.MainActivity;
 import com.bibi.wisdom.user.login.LoginActivity;
-import com.bibi.wisdom.utils.LogUtils;
+
 import com.bibi.wisdom.utils.UserService;
 
 public class LaunchActivity extends AppCompatActivity {

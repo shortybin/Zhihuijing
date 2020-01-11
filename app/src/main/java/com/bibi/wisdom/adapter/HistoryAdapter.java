@@ -37,7 +37,8 @@ public class HistoryAdapter extends CommonRecyclerAdapter<HistoryBean.ListBean> 
         }
 
 
-        holder.setTextViewText(R.id.tv_duration, "使用时长："+bean.getTimeLongFormat()+"小时");
+        String[] splitTime = bean.getTimeLongFormat().split(":");
+        holder.setTextViewText(R.id.tv_duration, "使用时长："+splitTime[0]+"小时"+splitTime[1]+"分钟");
         holder.setTextViewText(R.id.tv_cost, "交易金额："+bean.getSumPriceStr()+"元");
 
 //        holder.setOnClickListener(listener, R.id.ll_history);
