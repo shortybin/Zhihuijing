@@ -3,16 +3,13 @@ package com.bibi.wisdom.app;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.bibi.wisdom.utils.cache.ShareData;
 import com.uuzuche.lib_zxing.ZApplication;
 import com.vondear.rxtool.RxTool;
 
-import java.util.List;
 
-
-public class BaseApplication extends Application {
+public class BaseApplication extends ZApplication {
     private static final String TAG = "BaseApplication";
     private static BaseApplication app;
 
