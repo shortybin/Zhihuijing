@@ -80,17 +80,18 @@ public class ProgressSubscriber<T extends BaseBean> implements
     @Override
     public void onNext(T t) {
         Log.d(TAG, "onNext: ");
+        dismissProgressDialog();
         /**
          * 这里的话是通过success 或者 code 来判断 可惜豆辫放回数据没有这个字段 就只能通多count来判断了
          */
-        if (mSubscriberOnNextListener != null&&t.getStatus()==101) {
-            if(t.getData()==null)
+        if (mSubscriberOnNextListener != null && t.getStatus() == 101) {
+            if (t.getData() == null)
                 t.setData(new Object());
             mSubscriberOnNextListener.onNext(t.getData());
-        }else if(t.getStatus()==601){  //登录过期
+        } else if (t.getStatus() == 601) {  //登录过期
             onFail(t);
             UserService.logout();
-            Intent intent=new Intent(context,LoginActivity.class);
+            Intent intent = new Intent(context, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(intent);
         } else {

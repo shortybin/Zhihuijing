@@ -78,7 +78,7 @@ public interface ApiService {
     Observable<BaseBean> logout();
 
     @POST("security/user/accountLogout")
-    Observable<BannerBean> delectUser(@Query("phone") String phone);
+    Observable<BaseBean> delectUser(@Query("phone") String phone);
 
     //注册
     @POST("user/register")

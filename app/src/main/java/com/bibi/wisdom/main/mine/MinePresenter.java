@@ -38,7 +38,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
 
     @Override
     public void delectUser() {
-        Observable<BannerBean> bannerBeanObservable = HttpUtil.getInstance().delectUser(UserService.getUserInfo().getAccountInfo().getPhone());
+        Observable ob = HttpUtil.getInstance().delectUser(UserService.getUserInfo().getAccountInfo().getPhone());
 
         SubscriberOnNextListener<Object> listener = new SubscriberOnNextListener<Object>() {
             @Override
@@ -51,7 +51,7 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
                 mView.delectUserFail(err);
             }
         };
-        SubscribeHandler.observeOn(bannerBeanObservable, new ProgressSubscriber(listener, ((Fragment) mView).getActivity(), true));
+        SubscribeHandler.observeOn(ob, new ProgressSubscriber(listener, ((Fragment) mView).getActivity(), true));
     }
 
 
