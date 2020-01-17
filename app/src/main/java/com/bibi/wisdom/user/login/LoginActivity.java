@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import com.bibi.wisdom.user.findpwd.FindPwdActivity;
 import com.bibi.wisdom.user.register.RegisterActivity;
 import com.bibi.wisdom.utils.UserService;
 import com.bibi.wisdom.utils.VaUtils;
+import com.bibi.wisdom.view.CommonDialog;
 import com.vondear.rxtool.view.RxToast;
 
 import butterknife.BindView;
@@ -50,6 +52,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     TextView tvForgetPwd;
     @BindView(R.id.tv_register)
     TextView tvRegister;
+    @BindView(R.id.user_checkbox)
+    CheckBox mCheckBox;
 
     private String phone;
     private String pwd;
@@ -62,7 +66,7 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         tvTopTitle.setText("登录");
         ivBack.setVisibility(View.INVISIBLE);
     }
@@ -89,6 +93,11 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         phone = etPhoneNumber.getText().toString().trim();
         pwd = etPwd.getText().toString().trim();
 
+        if (!mCheckBox.isChecked()) {
+            RxToast.normal(this, "请先勾选同意《用户协议与隐私政策》").show();
+            return false;
+        }
+
         if (TextUtils.isEmpty(phone)) {
             RxToast.normal(this, "请输入手机号").show();
             return false;
@@ -102,25 +111,35 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             RxToast.normal(this, "请输入密码").show();
             return false;
         }
+
+
         return true;
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_commit, R.id.tv_forget_pwd, R.id.tv_register,R.id.user_protocol})
+    @OnClick({R.id.iv_back, R.id.tv_commit, R.id.tv_forget_pwd, R.id.tv_register, R.id.user_protocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
             case R.id.tv_commit:
-                if(checkData()){
-                    mPresenter.login(phone,pwd);
+                if (checkData()) {
+                    mPresenter.login(phone, pwd);
                 }
                 break;
             case R.id.tv_forget_pwd:
-                goPage(FindPwdActivity.class);
+                if (!mCheckBox.isChecked()) {
+                    RxToast.normal(this, "请先勾选同意《用户协议与隐私政策》").show();
+                } else {
+                    goPage(FindPwdActivity.class);
+                }
                 break;
             case R.id.tv_register:
-                goPage(RegisterActivity.class);
+                if (!mCheckBox.isChecked()) {
+                    RxToast.normal(this, "请先勾选同意《用户协议与隐私政策》").show();
+                } else {
+                    goPage(RegisterActivity.class);
+                }
                 break;
             case R.id.user_protocol:
                 startActivity(new Intent(getContext(), WebPageActivity.class).putExtra("url", "http://www.huahuazn.com/RegisterProtocol.html"));

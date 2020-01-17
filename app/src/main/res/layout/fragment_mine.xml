@@ -118,7 +118,7 @@
             android:layout_weight="1"
             android:drawablePadding="10dp"
             android:paddingLeft="@dimen/dp_10"
-            android:text="隐私声明"
+            android:text="隐私政策"
             android:textColor="#565662"
             android:textSize="@dimen/text_size_mid_x" />
 
