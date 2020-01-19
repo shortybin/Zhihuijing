@@ -69,6 +69,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     ImageView ivOpen;
     @BindView(R.id.iv_close)
     ImageView ivClose;
+    @BindView(R.id.online_tv)
+    TextView mOnline;
     Unbinder unbinder;
     //banner列表
     List<BannerBean.BannersBean> home_logos = new ArrayList<>();
@@ -125,7 +127,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-        if (!hidden){
+        if (!hidden) {
             refreshDeviceInfo();
         }
         super.onHiddenChanged(hidden);
@@ -223,20 +225,31 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
             timeUnit = "小时";
         tvPrice.setText(bean.getPrice() + "元/" + timeUnit);
         tvDeviceName.setText("当前设备：" + bean.getProductName());
-        int status = deviceInfoBean.getEqstatus();
-        if (status == 0) {
-            tvStatus.setText("状态：关闭");
+        if (deviceInfoBean.getOnline().equals("0")) {
+            mOnline.setText("在线状态:离线");
             ivOpen.setImageResource(R.drawable.ic_close_inactive);
-            ivClose.setImageResource(R.drawable.ic_open_active);
-            ivOpen.setClickable(true);
-            ivClose.setClickable(false);
-        } else {
-            ivOpen.setImageResource(R.drawable.ic_close_active);
             ivClose.setImageResource(R.drawable.ic_close_inactive);
-            tvStatus.setText("状态：开启");
             ivOpen.setClickable(false);
-            ivClose.setClickable(true);
+            ivClose.setClickable(false);
+        } else if (deviceInfoBean.getOnline().equals("1")) {
+            mOnline.setText("在线状态:在线");
+            int status = deviceInfoBean.getEqstatus();
+            if (status == 0) {
+                tvStatus.setText("状态：关闭");
+                ivOpen.setImageResource(R.drawable.ic_close_inactive);
+                ivClose.setImageResource(R.drawable.ic_open_active);
+                ivOpen.setClickable(true);
+                ivClose.setClickable(false);
+            } else {
+                ivOpen.setImageResource(R.drawable.ic_close_active);
+                ivClose.setImageResource(R.drawable.ic_close_inactive);
+                tvStatus.setText("状态：开启");
+                ivOpen.setClickable(false);
+                ivClose.setClickable(true);
+            }
         }
+
+
     }
 
     private void resetDevice() {
