@@ -7,33 +7,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.WebPageActivity;
 import com.bibi.wisdom.bean.BannerBean;
 import com.bibi.wisdom.bean.DeviceInfoBean;
 import com.bibi.wisdom.bean.DeviceListBean;
-import com.bibi.wisdom.bean.HomeRefreshBean;
 import com.bibi.wisdom.main.device.DeviceActivity;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.utils.GlideBannerImageLoader;
 import com.bibi.wisdom.utils.IKeys;
-import com.bibi.wisdom.utils.LogUtils;
-import com.bibi.wisdom.utils.RxBus;
 import com.bibi.wisdom.utils.ToastUtil;
 import com.bibi.wisdom.view.CommonDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
-
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 
 /**
@@ -86,9 +80,10 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     private int deviceIndex = 0;
     private DeviceInfoBean deviceInfoBean; //当前设备状态
 
-    private boolean needRefresh = false;
-
     private Disposable disposable;
+
+    private long mLastClickTime = 0;
+    public static final int TIME_INTERVAL = 3000;
 
 
     @Override
@@ -103,29 +98,19 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         mPresenter.getBanner();
         mPresenter.getDeviceList();
 
-        disposable = RxBus.get().toObservable(HomeRefreshBean.class).subscribe(consumer);
-
         mLinearLayout.setOnTouchListener((v, event) -> {
-            refreshDeviceInfo();
+            if (System.currentTimeMillis() - mLastClickTime >= TIME_INTERVAL) {
+                mLastClickTime = System.currentTimeMillis();
+                refreshDeviceInfo();
+            }
             return false;
         });
-    }
-
-    Consumer<HomeRefreshBean> consumer = homeRefreshBean -> needRefresh = true;
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (needRefresh) {
-            mPresenter.getDeviceList();
-        }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            refreshDeviceInfo();
+            mPresenter.getDeviceList();
         }
         super.onHiddenChanged(hidden);
     }
