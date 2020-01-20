@@ -120,7 +120,6 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
         if (needRefresh) {
             mPresenter.getDeviceList();
         }
-        refreshDeviceInfo();
     }
 
     @Override
