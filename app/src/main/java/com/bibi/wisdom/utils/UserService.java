@@ -16,8 +16,7 @@ public class UserService {
 
     private static final String USER_INFO = "userInfo";
 
-    private static SharedPreferencesUtil spUtil=new SharedPreferencesUtil(BaseApplication.getInstance(),"wisdom");
-
+    public static SharedPreferencesUtil spUtil = new SharedPreferencesUtil(BaseApplication.getInstance(), "wisdom");
 
 
     /**
@@ -37,14 +36,13 @@ public class UserService {
         spUtil.setData(USER_INFO, userJson);
 
     }
+
     /**
      * 登出
-     *
      */
     public static void logout() {
-
         spUtil.setData(USER_INFO, "");
-
+        spUtil.clear();
     }
 
 
@@ -63,11 +61,11 @@ public class UserService {
 
         Gson gson = new Gson();
 
-        return  gson.fromJson(userJson, UserLoginBean.class);
+        return gson.fromJson(userJson, UserLoginBean.class);
     }
 
 
-    public static boolean isLogin(){
+    public static boolean isLogin() {
         String userJson = (String) spUtil.getData(USER_INFO);
         return userJson != null && userJson.contains("id");
     }

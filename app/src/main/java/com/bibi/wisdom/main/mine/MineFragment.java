@@ -17,6 +17,7 @@ import com.bibi.wisdom.main.device.DeviceActivity;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.user.login.LoginActivity;
 import com.bibi.wisdom.utils.IKeys;
+import com.bibi.wisdom.utils.SharedPreferencesUtil;
 import com.bibi.wisdom.utils.UserService;
 import com.bibi.wisdom.view.CommonDialog;
 import com.vondear.rxtool.view.RxToast;

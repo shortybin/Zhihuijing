@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.WebPageActivity;
@@ -24,7 +23,10 @@ import com.bibi.wisdom.main.device.DeviceActivity;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.utils.GlideBannerImageLoader;
 import com.bibi.wisdom.utils.IKeys;
+import com.bibi.wisdom.utils.LogUtils;
+import com.bibi.wisdom.utils.SharedPreferencesUtil;
 import com.bibi.wisdom.utils.ToastUtil;
+import com.bibi.wisdom.utils.UserService;
 import com.bibi.wisdom.view.CommonDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -77,13 +79,14 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @BindView(R.id.tv_device_name)
     TextView tvDeviceName;
 
-    private int deviceIndex = 0;
+    private String deviceId;
     private DeviceInfoBean deviceInfoBean; //当前设备状态
 
     private Disposable disposable;
 
     private long mLastClickTime = 0;
     public static final int TIME_INTERVAL = 3000;
+    private DeviceListBean.UserproductlistBean mBean;
 
 
     @Override
@@ -94,6 +97,8 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void init() {
+
+        deviceId = (String) UserService.spUtil.getData(IKeys.DEVICE_ID);
         initBanner();
         mPresenter.getBanner();
         mPresenter.getDeviceList();
@@ -178,7 +183,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 , "取消", "确定", null, new CommonDialog.CallBackListener() {
             @Override
             public void callBack() {
-                mPresenter.openDevice(list.get(deviceIndex).getId());
+                mPresenter.openDevice(deviceId);
             }
         });
 
@@ -191,7 +196,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
                 , "取消", "确定", null, new CommonDialog.CallBackListener() {
             @Override
             public void callBack() {
-                mPresenter.closeDevice(list.get(deviceIndex).getId());
+                mPresenter.closeDevice(deviceId);
             }
         });
 
@@ -199,14 +204,18 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     }
 
 
-    private void setDeviceInfo(int index) {
+    private void setDeviceInfo() {
         rlController.setVisibility(View.VISIBLE);
-        DeviceListBean.UserproductlistBean bean = list.get(index);
-        String timeUnit = bean.getTimeUnit();
+        for (int i = 0; i < list.size(); i++) {
+            if (deviceId.equals(list.get(i).getId())) {
+                mBean = list.get(i);
+            }
+        }
+        String timeUnit = mBean.getTimeUnit();
         if (TextUtils.isEmpty(timeUnit))
             timeUnit = "小时";
-        tvPrice.setText(bean.getPrice() + "元/" + timeUnit);
-        tvDeviceName.setText("当前设备：" + bean.getProductName());
+        tvPrice.setText(mBean.getPrice() + "元/" + timeUnit);
+        tvDeviceName.setText("当前设备：" + mBean.getProductName());
         if (deviceInfoBean.getOnline().equals("0")) {
             tvStatus.setText("状态:离线");
             ivOpen.setImageResource(R.drawable.ic_close_inactive);
@@ -264,6 +273,11 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     public void getDeviceSuccess(DeviceListBean bean) {
         list.clear();
         list.addAll(bean.getUserproductlist());
+        if (TextUtils.isEmpty(deviceId)) {
+            if (list.size() > 0) {
+                deviceId = list.get(0).getId();
+            }
+        }
         refreshDeviceInfo();
     }
 
@@ -276,7 +290,7 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
     @Override
     public void getDeviceInfoSuccess(DeviceInfoBean bean) {
         deviceInfoBean = bean;
-        setDeviceInfo(deviceIndex);
+        setDeviceInfo();
     }
 
     @Override
@@ -318,26 +332,27 @@ public class HomeFragment extends MVPBaseFragment<HomeContract.View, HomePresent
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtils.d("activity fragment");
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_DEVICE:
                 if (resultCode != Activity.RESULT_OK)
                     return;
                 if (data != null) {
-                    deviceIndex = data.getIntExtra(IKeys.KEY_INDEX, 0);
-                    if (list.size() > deviceIndex) {
-                        mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
-                    }
+                    deviceId = data.getStringExtra(IKeys.DEVICE_ID);
+                    UserService.spUtil.setData(IKeys.DEVICE_ID, deviceId);
+                    mPresenter.getDeviceInfo(deviceId);
                 }
                 break;
         }
     }
 
     public void refreshDeviceInfo() {
-        if (list.size() > deviceIndex) {
-            mPresenter.getDeviceInfo(list.get(deviceIndex).getId());
-        } else {
+        if (TextUtils.isEmpty(deviceId)) {
             resetDevice();
+        } else {
+            mPresenter.getDeviceInfo(deviceId);
         }
+
     }
 }

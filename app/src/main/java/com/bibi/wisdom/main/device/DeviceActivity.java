@@ -64,7 +64,7 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
 
     private Disposable disposable;
 
-    private boolean needRefresh=false;
+    private boolean needRefresh = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,9 +77,9 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
     }
 
     private void initView() {
-        if (type == TYPE_SHOW){
+        if (type == TYPE_SHOW) {
             tvCommit.setVisibility(View.GONE);
-        }else {
+        } else {
             tvCommit.setVisibility(View.VISIBLE);
         }
         tvTopTitle.setText("我的设备");
@@ -100,14 +100,14 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
         mPresenter.getDeviceList();
 
 
-        disposable= RxBus.get().toObservable(DeviceRefreshBean.class).subscribe(consumer);
+        disposable = RxBus.get().toObservable(DeviceRefreshBean.class).subscribe(consumer);
     }
 
-    Consumer<DeviceRefreshBean> consumer=new Consumer<DeviceRefreshBean>(){
+    Consumer<DeviceRefreshBean> consumer = new Consumer<DeviceRefreshBean>() {
 
         @Override
         public void accept(DeviceRefreshBean homeRefreshBean) throws Exception {
-            needRefresh=true;
+            needRefresh = true;
         }
     };
 
@@ -119,13 +119,13 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
         public void onClick(View v, int position, CommonRecyclerHolder holder) {
             if (type == TYPE_SHOW) {
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra(IKeys.KEY_INDEX, position);
+                resultIntent.putExtra(IKeys.DEVICE_ID, adapter.getData().get(position).getId());
                 setResult(RESULT_OK, resultIntent);
                 finish();
-            }else {
-                Intent intent=new Intent(DeviceActivity.this, AddDeviceActivity.class);
-                intent.putExtra(IKeys.KEY_DATA,list.get(position));
-                intent.putExtra(IKeys.KEY_FROM,AddDeviceActivity.FROM_LIST);
+            } else {
+                Intent intent = new Intent(DeviceActivity.this, AddDeviceActivity.class);
+                intent.putExtra(IKeys.KEY_DATA, list.get(position));
+                intent.putExtra(IKeys.KEY_FROM, AddDeviceActivity.FROM_LIST);
                 startActivity(intent);
             }
         }
@@ -135,7 +135,7 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
     @Override
     protected void onResume() {
         super.onResume();
-        if(needRefresh){
+        if (needRefresh) {
             mPresenter.getDeviceList();
         }
     }
@@ -143,9 +143,9 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(disposable!=null&&!disposable.isDisposed()){
+        if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
-            disposable=null;
+            disposable = null;
         }
     }
 
@@ -162,15 +162,15 @@ public class DeviceActivity extends MVPBaseActivity<DeviceContract.View, DeviceP
             return;
         list.clear();
         list.addAll(bean.getUserproductlist());
-        if(list.size()==0)
-            ToastUtil.showToast(this,"暂无数据");
+        if (list.size() == 0)
+            ToastUtil.showToast(this, "暂无数据");
         adapter.setData(list);
 
     }
 
     @Override
     public void getDeviceFail(String message) {
-        ToastUtil.showToast(this,message);
+        ToastUtil.showToast(this, message);
         smartLayout.finishRefresh();
     }
 

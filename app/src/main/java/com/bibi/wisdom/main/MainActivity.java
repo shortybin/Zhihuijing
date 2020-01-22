@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.mvp.MVPBaseActivity;
+import com.bibi.wisdom.utils.LogUtils;
 import com.bibi.wisdom.utils.MyFragmentTabHost;
 import com.bibi.wisdom.utils.StatusBarUtil;
 import com.bibi.wisdom.utils.TabDb;
@@ -42,7 +43,8 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
     // 接收配网结果
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
+        LogUtils.d("activity mian");
         if (1 == requestCode) {
             if (Activity.RESULT_OK != resultCode) {
                 // 配网失败
@@ -111,6 +113,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
 
         }
     }
+
 
     private void bindVirturalToUser(String pk, String dn) {
 //        Map<String, Object> maps = new HashMap<>();
