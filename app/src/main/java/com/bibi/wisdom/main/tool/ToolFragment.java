@@ -18,6 +18,7 @@ import com.vondear.rxtool.RxDataTool;
 import com.vondear.rxtool.RxTimeTool;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -55,8 +56,6 @@ public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresent
     private Date startDate;
     private Date endDate;
     private String price;
-
-    private int hours=0;
 
     private double totalCost;
 
@@ -130,16 +129,27 @@ public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresent
 
     private void calculateCost(){
         long duration=endDate.getTime()-startDate.getTime();
-        hours= (int) (duration/(1000*3600));
-        if(hours==0)
-            hours=1;
+        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");//初始化Formatter的转换格式。
+        String hms = formatter.format(new Date(duration));
 
-        BigDecimal b1 = new BigDecimal(price);
-        BigDecimal b2 = new BigDecimal(hours);
+        String[] time =hms.split(":");
+        int hours= Integer.parseInt(time[0]);
+        int minutes=Integer.parseInt(time[1]);
+        int seconds=Integer.parseInt(time[2]);
 
-        totalCost=b1.multiply(b2).doubleValue();
 
-        tvDuration.setText("使用时长："+hours+"小时");
+        BigDecimal b1 = new BigDecimal((Double.valueOf(price)/3600));
+        BigDecimal b2 = new BigDecimal(duration/1000);
+
+        totalCost=b1.multiply(b2).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        if (hours>0){
+            tvDuration.setText("使用时长："+hours+"小时"+minutes+"分钟"+seconds+"秒");
+        }else if (minutes>0){
+            tvDuration.setText("使用时长："+minutes+"分钟"+seconds+"秒");
+        }else{
+            tvDuration.setText("使用时长："+seconds+"秒");
+        }
         tvCost.setText("账单金额："+totalCost+"元");
 
     }
