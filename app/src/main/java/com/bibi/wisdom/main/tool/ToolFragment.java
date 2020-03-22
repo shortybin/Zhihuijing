@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
+import com.bibi.wisdom.utils.DeviceUtils;
 import com.bibi.wisdom.utils.ToastUtil;
 import com.bigkoo.pickerview.TimePickerView;
 import com.vondear.rxtool.RxDataTool;
@@ -151,7 +152,7 @@ public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresent
             tvDuration.setText("使用时长："+seconds+"秒");
         }
         tvCost.setText("账单金额："+totalCost+"元");
-
+        DeviceUtils.hideSoftInput(getActivity());
     }
 
 
