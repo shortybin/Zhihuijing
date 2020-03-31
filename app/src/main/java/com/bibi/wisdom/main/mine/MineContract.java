@@ -2,6 +2,7 @@ package com.bibi.wisdom.main.mine;
 
 import android.content.Context;
 
+import com.bibi.wisdom.bean.DeviceListBean;
 import com.bibi.wisdom.mvp.BasePresenter;
 import com.bibi.wisdom.mvp.BaseView;
 
@@ -12,6 +13,7 @@ import com.bibi.wisdom.mvp.BaseView;
 
 public class MineContract {
     interface View extends BaseView {
+
         void logoutSuccess();
 
 
@@ -20,11 +22,17 @@ public class MineContract {
         void delectUserSuccess();
 
         void delectUserFail(String message);
+
+        void getDeviceSuccess(DeviceListBean bean);
+
+        void getDeviceFail(String message);
     }
 
     interface Presenter extends BasePresenter<View> {
         void logout();
 
         void delectUser();
+
+        void getDeviceList();
     }
 }

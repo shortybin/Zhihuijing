@@ -13,11 +13,13 @@ import android.widget.TextView;
 import com.bibi.wisdom.AboutUsActivity;
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.WebPageActivity;
+import com.bibi.wisdom.bean.DeviceListBean;
 import com.bibi.wisdom.main.device.DeviceActivity;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.user.login.LoginActivity;
 import com.bibi.wisdom.utils.IKeys;
 import com.bibi.wisdom.utils.SharedPreferencesUtil;
+import com.bibi.wisdom.utils.ToastUtil;
 import com.bibi.wisdom.utils.UserService;
 import com.bibi.wisdom.view.CommonDialog;
 import com.vondear.rxtool.view.RxToast;
@@ -90,7 +92,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
                 confirmDialog();
                 break;
             case R.id.ll_delect_user:
-                delectDialog();
+                mPresenter.getDeviceList();
                 break;
         }
     }
@@ -120,6 +122,27 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     @Override
     public void delectUserFail(String message) {
         RxToast.showToast(message);
+    }
+
+    @Override
+    public void getDeviceSuccess(DeviceListBean bean) {
+        if (bean.getUserproductlist().size()>0){
+            CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "注销用户前，请先移除设备列表中的所有设备", "取消", "确定", null, new CommonDialog.CallBackListener() {
+                @Override
+                public void callBack() {
+                    startActivity(new Intent(getActivity(), DeviceActivity.class).putExtra(IKeys.KEY_TYPE, DeviceActivity.TYPE_MANAGE));
+                }
+            });
+
+            commonDialog.show();
+        }else{
+            delectDialog();
+        }
+    }
+
+    @Override
+    public void getDeviceFail(String message) {
+        ToastUtil.showToast(getContext(),message);
     }
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 
 import com.bibi.wisdom.bean.BannerBean;
+import com.bibi.wisdom.bean.DeviceListBean;
 import com.bibi.wisdom.mvp.BasePresenterImpl;
 import com.bibi.wisdom.network.HttpUtil;
 import com.bibi.wisdom.network.SubscribeHandler;
@@ -52,6 +53,23 @@ public class MinePresenter extends BasePresenterImpl<MineContract.View> implemen
             }
         };
         SubscribeHandler.observeOn(ob, new ProgressSubscriber(listener, ((Fragment) mView).getActivity(), true));
+    }
+
+    @Override
+    public void getDeviceList() {
+        Observable ob = HttpUtil.getInstance().getDeviceList();
+        SubscriberOnNextListener<DeviceListBean> listener=new SubscriberOnNextListener<DeviceListBean>() {
+            @Override
+            public void onNext(DeviceListBean bean) {
+                mView.getDeviceSuccess(bean);
+            }
+
+            @Override
+            public void onFail(String err) {
+                mView.getDeviceFail(err);
+            }
+        };
+        SubscribeHandler.observeOn(ob,new ProgressSubscriber(listener, ((Fragment) mView).getActivity(),false));
     }
 
 
