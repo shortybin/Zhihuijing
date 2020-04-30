@@ -3,20 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.bibi.wisdom">
 
-    <uses-sdk tools:overrideLibrary="com.guge.imagemodule,
-    com.aliyun.alink.business.devicecenter,com.aliyun.iot.breeze.lpbs,
-    com.aliyun.alink.page.rn,com.aliyun.iot.aep.component.bundlemanager,
-    com.aliyun.alink.sdk.jsbridge.external,com.aliyun.iot.breeze.biz,
-    com.aliyun.alink.linksdk.channel.gateway,com.aliyun.alink.linksdk.tmp.extbone,
-    com.aliyun.alink.linksdk.tmp,com.aliyun.alink.linksdk.cmp,com.aliyun.iot.aep.sdk.connectchannel,
-    com.aliyun.alink.linksdk.channel.mobile,com.aliyun.iot.aep.sdk.apiclient,com.aliyun.iot.aep.sdk.credential,
-    com.aliyun.iot.breeze.ota,com.aliyun.iot.breeze.sdk,com.aliyun.iot.ble,com.aliyun.alink.business.devicecenter.extbone,
-    alink.rncontainer,com.horcrux.svg,com.facebook.react,com.aliyun.alink.sdk.rn.external,com.vondear.rxtool,
-    com.vondear.rxui,com.aliyun.iot.aep.sdk.bridge,com.aliyun.alink.linksdk.alcs,com.aliyun.alink.linksdk.alcs.lpbs,
-    com.aliyun.alink.linksdk.channel.core,com.aliyun.alink.external.widget,org.chromium.v8,com.aliyun.alink.linksdk.pah,
-    com.facebook" />
-
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -24,6 +10,14 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+    <!--用于申请调用A-GPS模块-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"></uses-permission>
 
     <application
         android:name="com.bibi.wisdom.app.BaseApplication"
@@ -34,9 +28,8 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:allowBackup,icon"
-        tools:ignore="GoogleAppIndexingWarning">
-
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:allowBackup,icon">
 
         <activity
             android:name="com.bibi.wisdom.LaunchActivity"
@@ -92,24 +85,15 @@
             android:screenOrientation="portrait" />
         <activity android:name="com.bibi.wisdom.ProMosaicActivity"></activity>
 
-        <receiver
-            android:name=".receiver.PushReceiver"
-            android:exported="false"> <!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->
-            <intent-filter>
-                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
-            </intent-filter>
-        </receiver>
 
+        <service android:name="com.amap.api.location.APSService"></service>
 
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="b7d45cfdec860dcfe7a1fd794cc7e404" />
     </application>
 
 </manifest>
