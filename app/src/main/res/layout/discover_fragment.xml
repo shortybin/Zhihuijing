@@ -6,8 +6,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_180"
+        android:layout_height="@dimen/dp_200"
         android:background="#2196F3"
+        android:paddingTop="@dimen/dp_25"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -38,9 +39,11 @@
             android:id="@+id/today_weather"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/dp_23"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintLeft_toLeftOf="@+id/city_select"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="10dp"
             app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather"
             app:layout_constraintTop_toBottomOf="@+id/city_select">
 
@@ -59,13 +62,25 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="实时天气"
                 android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="233重度"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                app:layout_constraintLeft_toRightOf="@+id/now_weather_title"
+                app:layout_constraintBottom_toTopOf="@+id/now_weather_title"
+                />
 
             <TextView
                 android:id="@+id/current_temperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
                 android:text="21℃/"
                 android:textColor="@color/white"
                 android:textSize="30sp"
@@ -103,28 +118,77 @@
 
         <View
             android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/today_weather"
+            app:layout_constraintTop_toTopOf="@+id/today_weather"
             app:layout_constraintLeft_toRightOf="@+id/today_weather"
             app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/tomorrow_weather"
             android:layout_width="0dp"
+            android:layout_marginTop="10dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_weight="2"
             app:layout_constraintLeft_toRightOf="@+id/today_weather"
-            app:layout_constraintRight_toRightOf="@+id/future_weather"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/future_weather">
+
+            <ImageView
+                android:id="@+id/tomorrow_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_23"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tomorrow_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="明天"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tomorrow_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_13"
+                android:text="最高20℃"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                app:layout_constraintTop_toBottomOf="@+id/tomorrow_text" />
+
+            <TextView
+                android:id="@+id/tomorrow_low"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="最低3℃"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                app:layout_constraintTop_toBottomOf="@+id/tomorrow_height" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="明天"
+                android:layout_marginTop="@dimen/dp_13"
+                android:text="大雨"
                 android:textColor="@color/white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                app:layout_constraintTop_toBottomOf="@+id/tomorrow_low" />
+
+
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 
