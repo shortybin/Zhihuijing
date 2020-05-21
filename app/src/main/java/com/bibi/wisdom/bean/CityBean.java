@@ -42,4 +42,14 @@ public class CityBean {
     public void setLon(String lon) {
         this.lon = lon;
     }
+
+    @Override
+    public String toString() {
+        return "CityBean{" +
+                "city='" + city + '\'' +
+                ", second_city='" + second_city + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                '}';
+    }
 }
