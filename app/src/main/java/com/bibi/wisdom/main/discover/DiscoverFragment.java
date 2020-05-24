@@ -2,6 +2,9 @@ package com.bibi.wisdom.main.discover;
 
 import android.util.Log;
 
+import com.alibaba.cloudapi.sdk.model.ApiCallback;
+import com.alibaba.cloudapi.sdk.model.ApiRequest;
+import com.alibaba.cloudapi.sdk.model.ApiResponse;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
@@ -9,7 +12,10 @@ import com.amap.api.location.AMapLocationListener;
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.bean.CityBean;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
+import com.bibi.wisdom.network.weather.WeatherHttp;
 import com.bibi.wisdom.utils.AssetsUtils;
+import com.bibi.wisdom.utils.CityUtils;
+import com.bibi.wisdom.utils.ToastUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,24 +44,30 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
         AMapLocationListener mLocationListener = new AMapLocationListener() {
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
+                CityBean cityBean = null;
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0) {
                         String city = aMapLocation.getCity();
-                        String assetsString = AssetsUtils.getAssetsString(getContext(), "city.json");
-
-                        Gson gson=new Gson();
-                        CityBean cityBean = null;
-                        List<CityBean> cityBeanList = gson.fromJson(assetsString, new TypeToken<List<CityBean>>(){}.getType());
-                        for (int i = 0; i < cityBeanList.size(); i++) {
-                            if (cityBeanList.get(i).getSecond_city().equals(city)&&
-                                    cityBeanList.get(i).getCity().equals(cityBeanList.get(i).getSecond_city())){
-                                cityBean = cityBeanList.get(i);
-                            }
-                        }
-
-                        Log.d("城市信息", cityBean.toString());
+                         cityBean= CityUtils.cityInfo(getContext(), city);
+                    }else{
+                        cityBean=CityUtils.cityInfo(getContext(),"北京市");
                     }
+                }else{
+                    cityBean=CityUtils.cityInfo(getContext(),"北京市");
                 }
+
+                WeatherHttp.getInstance().天气预报15天(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
+                    @Override
+                    public void onFailure(ApiRequest apiRequest, Exception e) {
+                        ToastUtil.showToast(getContext(),e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
+                        ToastUtil.showToast(getContext(),WeatherHttp.getInstance().getResultString(apiResponse));
+                    }
+                });
+
             }
         };
         mMLocationClient.setLocationListener(mLocationListener);

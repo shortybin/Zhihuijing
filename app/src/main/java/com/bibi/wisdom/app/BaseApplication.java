@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.alibaba.cloudapi.sdk.model.HttpClientBuilderParams;
+import com.bibi.wisdom.network.weather.WeatherHttp;
 import com.bibi.wisdom.utils.cache.ShareData;
 import com.uuzuche.lib_zxing.ZApplication;
 import com.vondear.rxtool.RxTool;
@@ -26,6 +28,10 @@ public class BaseApplication extends ZApplication {
         RxTool.init(this);
         ShareData.init(this);
 
+        HttpClientBuilderParams httpParam = new HttpClientBuilderParams();
+        httpParam.setAppKey("203819285");
+        httpParam.setAppSecret("L5dRBm7nNY880I4qLEXoqmqr2KYD8IEl");
+        WeatherHttp.getInstance().init(httpParam);
         //init(this);
     }
 
