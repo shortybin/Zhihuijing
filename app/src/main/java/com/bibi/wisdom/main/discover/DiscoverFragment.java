@@ -2,6 +2,7 @@ package com.bibi.wisdom.main.discover;
 
 import android.util.Log;
 
+import com.alibaba.cloudapi.sdk.constant.SdkConstant;
 import com.alibaba.cloudapi.sdk.model.ApiCallback;
 import com.alibaba.cloudapi.sdk.model.ApiRequest;
 import com.alibaba.cloudapi.sdk.model.ApiResponse;
@@ -48,23 +49,23 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0) {
                         String city = aMapLocation.getCity();
-                         cityBean= CityUtils.cityInfo(getContext(), city);
-                    }else{
-                        cityBean=CityUtils.cityInfo(getContext(),"北京市");
+                        cityBean = CityUtils.cityInfo(getContext(), city);
+                    } else {
+                        cityBean = CityUtils.cityInfo(getContext(), "北京市");
                     }
-                }else{
-                    cityBean=CityUtils.cityInfo(getContext(),"北京市");
+                } else {
+                    cityBean = CityUtils.cityInfo(getContext(), "北京市");
                 }
 
                 WeatherHttp.getInstance().天气预报15天(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
                     @Override
                     public void onFailure(ApiRequest apiRequest, Exception e) {
-                        ToastUtil.showToast(getContext(),e.getMessage());
+
                     }
 
                     @Override
                     public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
-                        ToastUtil.showToast(getContext(),WeatherHttp.getInstance().getResultString(apiResponse));
+                        String body = new String(apiResponse.getBody(), SdkConstant.CLOUDAPI_ENCODING);
                     }
                 });
 
