@@ -104,7 +104,9 @@ public class WeatherHttp extends HttpApiClient{
 
         return sendSyncRequest(request);
     }
-    public void 天气预报15天(String lat , String lon , ApiCallback callback) {
+
+    //未来15天天气
+    public void getFifteenWeahter(String lat , String lon , ApiCallback callback) {
         String path = "/whapi/json/aliweather/forecast15days";
         ApiRequest request = new ApiRequest(HttpMethod.POST_FORM , path);
         request.addParam("lat" , lat , ParamPosition.BODY , true);
@@ -158,12 +160,12 @@ public class WeatherHttp extends HttpApiClient{
 
         return sendSyncRequest(request);
     }
-    public void 天气实况(String lat , String lon , String token , ApiCallback callback) {
+    public void getNowWeahter(String lat , String lon , ApiCallback callback) {
         String path = "/whapi/json/aliweather/condition";
         ApiRequest request = new ApiRequest(HttpMethod.POST_FORM , path);
         request.addParam("lat" , lat , ParamPosition.BODY , true);
         request.addParam("lon" , lon , ParamPosition.BODY , true);
-        request.addParam("token" , token , ParamPosition.BODY , false);
+        request.addParam("token" , "ff826c205f8f4a59701e64e9e64e01c4" , ParamPosition.BODY , false);
         sendAsyncRequest(request , callback);
     }
 

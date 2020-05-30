@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -48,10 +49,12 @@
             app:layout_constraintTop_toBottomOf="@+id/city_select">
 
             <ImageView
+                android:id="@+id/today_weather_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
+                android:src="@drawable/weather0"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,6 +75,7 @@
                 android:text="233重度"
                 android:textColor="@color/white"
                 android:textSize="8dp"
+                android:visibility="gone"
                 app:layout_constraintLeft_toRightOf="@+id/now_weather_title"
                 app:layout_constraintBottom_toTopOf="@+id/now_weather_title"
                 />
@@ -88,6 +92,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/now_weather_title" />
 
             <TextView
+                android:id="@+id/today_height_feel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="最高20℃"
@@ -97,6 +102,7 @@
                 app:layout_constraintTop_toTopOf="@+id/current_temperature" />
 
             <TextView
+                android:id="@+id/today_low_feel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="最低3℃"
@@ -106,6 +112,7 @@
                 app:layout_constraintLeft_toRightOf="@+id/current_temperature" />
 
             <TextView
+                android:id="@+id/today_weather_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
@@ -141,6 +148,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dp_23"
+                android:src="@drawable/weather0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -179,6 +187,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tomorrow_height" />
 
             <TextView
+                android:id="@+id/tomorrow_weather_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_13"
@@ -187,7 +196,6 @@
                 android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
                 app:layout_constraintTop_toBottomOf="@+id/tomorrow_low" />
-
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
