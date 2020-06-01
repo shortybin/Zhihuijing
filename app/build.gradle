@@ -30,14 +30,12 @@ android {
 
         signingConfigs {
         debug{
-            v2SigningEnabled false
             storeFile file("app.jks")
             storePassword "135790"
             keyAlias "key"
             keyPassword "135790"
         }
         release {
-            v2SigningEnabled false
             storeFile file("app.jks")
             storePassword "135790"
             keyAlias "key"

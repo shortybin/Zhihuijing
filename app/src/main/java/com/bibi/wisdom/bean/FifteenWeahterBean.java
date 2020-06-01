@@ -1,8 +1,13 @@
 package com.bibi.wisdom.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class FifteenWeahterBean {
+public class FifteenWeahterBean implements Parcelable {
 
     /**
      * code : 0
@@ -48,7 +53,8 @@ public class FifteenWeahterBean {
         this.rc = rc;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Parcelable,Serializable {
+
         /**
          * city : {"cityId":284609,"counname":"中国","name":"东城区","pname":"北京市"}
          * forecast : [{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaningCrescent","moonrise":"2016-08-31 04:19:00","moonset":"2016-08-31 18:07:00","predictDate":"2016-08-31","sunrise":"2016-08-31 05:41:00","sunset":"2016-08-31 18:47:00","tempDay":"34","tempNight":"18","updatetime":"2016-08-31 23:07:06","windDirDay":"北风","windDirNight":"西北风","windLevelDay":"3","windLevelNight":"3","windSpeedDay":"5.0","windSpeedNight":"5.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"New","moonrise":"2016-09-01 05:20:00","moonset":"2016-09-01 18:41:00","predictDate":"2016-09-01","sunrise":"2016-09-01 05:42:00","sunset":"2016-09-01 18:45:00","tempDay":"27","tempNight":"18","updatetime":"2016-09-01 22:07:06","windDirDay":"西北风","windDirNight":"北风","windLevelDay":"3","windLevelNight":"2","windSpeedDay":"5.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingCrescent","moonrise":"2016-09-02 06:20:00","moonset":"2016-09-02 19:14:00","predictDate":"2016-09-02","sunrise":"2016-09-02 05:43:00","sunset":"2016-09-02 18:44:00","tempDay":"27","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"西北风","windDirNight":"东南风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingCrescent","moonrise":"2016-09-03 07:19:00","moonset":"2016-09-03 19:44:00","predictDate":"2016-09-03","sunrise":"2016-09-03 05:44:00","sunset":"2016-09-03 18:42:00","tempDay":"28","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"东南风","windDirNight":"东南风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"阵雨","conditionIdDay":"3","conditionIdNight":"30","conditionNight":"大部晴朗","moonphase":"WaxingCrescent","moonrise":"2016-09-04 08:16:00","moonset":"2016-09-04 20:14:00","predictDate":"2016-09-04","sunrise":"2016-09-04 05:45:00","sunset":"2016-09-04 18:41:00","tempDay":"28","tempNight":"18","updatetime":"2016-09-01 22:07:06","windDirDay":"南风","windDirNight":"西风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"少云","moonphase":"WaxingCrescent","moonrise":"2016-09-05 09:13:00","moonset":"2016-09-05 20:44:00","predictDate":"2016-09-05","sunrise":"2016-09-05 05:46:00","sunset":"2016-09-05 18:39:00","tempDay":"30","tempNight":"21","updatetime":"2016-09-01 22:07:06","windDirDay":"西北风","windDirNight":"西北风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingCrescent","moonrise":"2016-09-06 10:08:00","moonset":"2016-09-06 21:16:00","predictDate":"2016-09-06","sunrise":"2016-09-06 05:47:00","sunset":"2016-09-06 18:37:00","tempDay":"30","tempNight":"21","updatetime":"2016-09-01 22:07:06","windDirDay":"北风","windDirNight":"北风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"少云","moonphase":"WaxingCrescent","moonrise":"2016-09-07 11:04:00","moonset":"2016-09-07 21:50:00","predictDate":"2016-09-07","sunrise":"2016-09-07 05:48:00","sunset":"2016-09-07 18:36:00","tempDay":"27","tempNight":"17","updatetime":"2016-09-01 22:07:06","windDirDay":"西风","windDirNight":"东北风","windLevelDay":"2","windLevelNight":"2","windSpeedDay":"3.0","windSpeedNight":"3.0"},{"conditionDay":"阵雨","conditionIdDay":"3","conditionIdNight":"33","conditionNight":"阵雨","moonphase":"WaxingCrescent","moonrise":"2016-09-08 11:59:00","moonset":"2016-09-08 22:27:00","predictDate":"2016-09-08","sunrise":"2016-09-08 05:49:00","sunset":"2016-09-08 18:34:00","tempDay":"31","tempNight":"17","updatetime":"2016-09-01 22:07:06","windDirDay":"东南风","windDirNight":"北风","windLevelDay":"1","windLevelNight":"1","windSpeedDay":"1.0","windSpeedNight":"1.0"},{"conditionDay":"局部阵雨","conditionIdDay":"3","conditionIdNight":"30","conditionNight":"晴","moonphase":"First","moonrise":"2016-09-09 12:53:00","moonset":"2016-09-09 23:09:00","predictDate":"2016-09-09","sunrise":"2016-09-09 05:50:00","sunset":"2016-09-09 18:33:00","tempDay":"31","tempNight":"18","updatetime":"2016-09-01 22:07:06","windDirDay":"东风","windDirNight":"南风","windLevelDay":"1","windLevelNight":"2","windSpeedDay":"1.0","windSpeedNight":"3.0"},{"conditionDay":"雷阵雨","conditionIdDay":"4","conditionIdNight":"33","conditionNight":"阵雨","moonphase":"WaxingGibbous","moonrise":"2016-09-10 13:45:00","moonset":"2016-09-10 23:55:00","predictDate":"2016-09-10","sunrise":"2016-09-10 05:51:00","sunset":"2016-09-10 18:31:00","tempDay":"31","tempNight":"18","updatetime":"2016-09-01 22:07:06","windDirDay":"东北风","windDirNight":"东风","windLevelDay":"1","windLevelNight":"2","windSpeedDay":"1.0","windSpeedNight":"3.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingGibbous","moonrise":"2016-09-11 14:35:00","moonset":"2016-09-12 00:46:00","predictDate":"2016-09-11","sunrise":"2016-09-11 05:52:00","sunset":"2016-09-11 18:29:00","tempDay":"31","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"西南风","windDirNight":"北风","windLevelDay":"2","windLevelNight":"1","windSpeedDay":"3.0","windSpeedNight":"1.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingGibbous","moonrise":"2016-09-12 15:24:00","moonset":"2016-09-13 01:43:00","predictDate":"2016-09-12","sunrise":"2016-09-12 05:53:00","sunset":"2016-09-12 18:28:00","tempDay":"31","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"南风","windDirNight":"西南风","windLevelDay":"1","windLevelNight":"1","windSpeedDay":"1.0","windSpeedNight":"1.0"},{"conditionDay":"多云","conditionIdDay":"1","conditionIdNight":"31","conditionNight":"少云","moonphase":"WaxingGibbous","moonrise":"2016-09-13 16:08:00","moonset":"2016-09-14 02:44:00","predictDate":"2016-09-13","sunrise":"2016-09-13 05:54:00","sunset":"2016-09-13 18:26:00","tempDay":"31","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"东北风","windDirNight":"西北风","windLevelDay":"1","windLevelNight":"2","windSpeedDay":"1.0","windSpeedNight":"3.0"},{"conditionDay":"阵雨","conditionIdDay":"3","conditionIdNight":"33","conditionNight":"阵雨","moonphase":"WaxingGibbous","moonrise":"2016-09-14 16:50:00","moonset":"2016-09-15 03:50:00","predictDate":"2016-09-14","sunrise":"2016-09-14 05:55:00","sunset":"2016-09-14 18:24:00","tempDay":"31","tempNight":"20","updatetime":"2016-09-01 22:07:06","windDirDay":"南风","windDirNight":"东风","windLevelDay":"2","windLevelNight":"1","windSpeedDay":"3.0","windSpeedNight":"1.0"},{"conditionDay":"晴","conditionIdDay":"0","conditionIdNight":"31","conditionNight":"多云","moonphase":"WaxingGibbous","moonrise":"2016-09-15 17:30:00","moonset":"2016-09-16 04:57:00","predictDate":"2016-09-15","sunrise":"2016-09-15 05:55:00","sunset":"2016-09-15 18:23:00","tempDay":"31","tempNight":"18","updatetime":"2016-09-01 22:07:06","windDirDay":"西风","windDirNight":"西风","windLevelDay":"1","windLevelNight":"2","windSpeedDay":"1.0","windSpeedNight":"3.0"}]
@@ -73,7 +79,8 @@ public class FifteenWeahterBean {
             this.forecast = forecast;
         }
 
-        public static class CityBean {
+        public static class CityBean implements Parcelable, Serializable {
+
             /**
              * cityId : 284609
              * counname : 中国
@@ -117,9 +124,45 @@ public class FifteenWeahterBean {
             public void setPname(String pname) {
                 this.pname = pname;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.cityId);
+                dest.writeString(this.counname);
+                dest.writeString(this.name);
+                dest.writeString(this.pname);
+            }
+
+            public CityBean() {
+            }
+
+            protected CityBean(Parcel in) {
+                this.cityId = in.readInt();
+                this.counname = in.readString();
+                this.name = in.readString();
+                this.pname = in.readString();
+            }
+
+            public static final Creator<CityBean> CREATOR = new Creator<CityBean>() {
+                @Override
+                public CityBean createFromParcel(Parcel source) {
+                    return new CityBean(source);
+                }
+
+                @Override
+                public CityBean[] newArray(int size) {
+                    return new CityBean[size];
+                }
+            };
         }
 
-        public static class ForecastBean {
+        public static class ForecastBean implements Parcelable {
+
             /**
              * conditionDay : 多云
              * conditionIdDay : 1
@@ -313,10 +356,108 @@ public class FifteenWeahterBean {
             public void setWindSpeedNight(String windSpeedNight) {
                 this.windSpeedNight = windSpeedNight;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.conditionDay);
+                dest.writeString(this.conditionIdDay);
+                dest.writeString(this.conditionIdNight);
+                dest.writeString(this.conditionNight);
+                dest.writeString(this.moonphase);
+                dest.writeString(this.moonrise);
+                dest.writeString(this.moonset);
+                dest.writeString(this.predictDate);
+                dest.writeString(this.sunrise);
+                dest.writeString(this.sunset);
+                dest.writeString(this.tempDay);
+                dest.writeString(this.tempNight);
+                dest.writeString(this.updatetime);
+                dest.writeString(this.windDirDay);
+                dest.writeString(this.windDirNight);
+                dest.writeString(this.windLevelDay);
+                dest.writeString(this.windLevelNight);
+                dest.writeString(this.windSpeedDay);
+                dest.writeString(this.windSpeedNight);
+            }
+
+            public ForecastBean() {
+            }
+
+            protected ForecastBean(Parcel in) {
+                this.conditionDay = in.readString();
+                this.conditionIdDay = in.readString();
+                this.conditionIdNight = in.readString();
+                this.conditionNight = in.readString();
+                this.moonphase = in.readString();
+                this.moonrise = in.readString();
+                this.moonset = in.readString();
+                this.predictDate = in.readString();
+                this.sunrise = in.readString();
+                this.sunset = in.readString();
+                this.tempDay = in.readString();
+                this.tempNight = in.readString();
+                this.updatetime = in.readString();
+                this.windDirDay = in.readString();
+                this.windDirNight = in.readString();
+                this.windLevelDay = in.readString();
+                this.windLevelNight = in.readString();
+                this.windSpeedDay = in.readString();
+                this.windSpeedNight = in.readString();
+            }
+
+            public static final Creator<ForecastBean> CREATOR = new Creator<ForecastBean>() {
+                @Override
+                public ForecastBean createFromParcel(Parcel source) {
+                    return new ForecastBean(source);
+                }
+
+                @Override
+                public ForecastBean[] newArray(int size) {
+                    return new ForecastBean[size];
+                }
+            };
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeSerializable(this.city);
+            dest.writeList(this.forecast);
+        }
+
+        public DataBean() {
+        }
+
+        protected DataBean(Parcel in) {
+            this.city = (CityBean) in.readSerializable();
+            this.forecast = new ArrayList<ForecastBean>();
+            in.readList(this.forecast, ForecastBean.class.getClassLoader());
+        }
+
+        public static final Creator<DataBean> CREATOR = new Creator<DataBean>() {
+            @Override
+            public DataBean createFromParcel(Parcel source) {
+                return new DataBean(source);
+            }
+
+            @Override
+            public DataBean[] newArray(int size) {
+                return new DataBean[size];
+            }
+        };
     }
 
-    public static class RcBean {
+    public static class RcBean implements Parcelable,Serializable {
+
         /**
          * c : 0
          * p : success
@@ -340,5 +481,71 @@ public class FifteenWeahterBean {
         public void setP(String p) {
             this.p = p;
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.c);
+            dest.writeString(this.p);
+        }
+
+        public RcBean() {
+        }
+
+        protected RcBean(Parcel in) {
+            this.c = in.readInt();
+            this.p = in.readString();
+        }
+
+        public static final Creator<RcBean> CREATOR = new Creator<RcBean>() {
+            @Override
+            public RcBean createFromParcel(Parcel source) {
+                return new RcBean(source);
+            }
+
+            @Override
+            public RcBean[] newArray(int size) {
+                return new RcBean[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.code);
+        dest.writeSerializable(this.data);
+        dest.writeString(this.msg);
+        dest.writeSerializable(this.rc);
+    }
+
+    public FifteenWeahterBean() {
+    }
+
+    protected FifteenWeahterBean(Parcel in) {
+        this.code = in.readInt();
+        this.data = (DataBean) in.readSerializable();
+        this.msg = in.readString();
+        this.rc = (RcBean) in.readSerializable();
+    }
+
+    public static final Parcelable.Creator<FifteenWeahterBean> CREATOR = new Parcelable.Creator<FifteenWeahterBean>() {
+        @Override
+        public FifteenWeahterBean createFromParcel(Parcel source) {
+            return new FifteenWeahterBean(source);
+        }
+
+        @Override
+        public FifteenWeahterBean[] newArray(int size) {
+            return new FifteenWeahterBean[size];
+        }
+    };
 }

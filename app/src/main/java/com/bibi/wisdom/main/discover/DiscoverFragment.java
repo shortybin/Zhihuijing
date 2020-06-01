@@ -1,6 +1,8 @@
 package com.bibi.wisdom.main.discover;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bibi.wisdom.CityListActivity;
+import com.bibi.wisdom.FifteenWeahterActivity;
 import com.bibi.wisdom.R;
 import com.bibi.wisdom.bean.CityBean;
 import com.bibi.wisdom.bean.FifteenWeahterBean;
@@ -31,6 +35,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by shortybin
@@ -71,6 +77,8 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     ImageView todayWeatherImage;
 
     private AMapLocationClient mMLocationClient;
+    private List<FifteenWeahterBean.DataBean.ForecastBean> list;
+    private FifteenWeahterBean.DataBean data;
 
 
     @Override
@@ -81,6 +89,32 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     @Override
     protected void init() {
         locationInit();
+        citySelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CityListActivity.class);
+                startActivityForResult(intent, 100);
+            }
+        });
+        futureWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), FifteenWeahterActivity.class);
+                intent.putExtra("data", (Parcelable) data);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 100) {
+                String cityName = data.getStringExtra("cityName");
+                CityBean cityBean = CityUtils.cityInfo(getContext(), cityName);
+                setWeatherInfo(cityBean);
+            }
+        }
     }
 
     public void locationInit() {
@@ -99,64 +133,7 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
                 } else {
                     cityBean = CityUtils.cityInfo(getContext(), "北京市");
                 }
-
-                WeatherHttp.getInstance().getFifteenWeahter(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
-                    @Override
-                    public void onFailure(ApiRequest apiRequest, Exception e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
-                        String body = new String(apiResponse.getBody(), SdkConstant.CLOUDAPI_ENCODING);
-                        Gson gson = new Gson();
-                        FifteenWeahterBean fifteenWeahterBean = gson.fromJson(body, FifteenWeahterBean.class);
-                        List<FifteenWeahterBean.DataBean.ForecastBean> list = fifteenWeahterBean.getData().getForecast();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                FifteenWeahterBean.DataBean.ForecastBean todayForecastBean = list.get(0);
-                                todayHeightFeel.setText("最高" + todayForecastBean.getTempDay() + "℃");
-                                todayLowFeel.setText("最低" + todayForecastBean.getTempNight() + "℃");
-
-                                FifteenWeahterBean.DataBean.ForecastBean tomorrowForecastBean = list.get(1);
-                                tomorrowHeight.setText("最高" + tomorrowForecastBean.getTempDay() + "℃");
-                                tomorrowLow.setText("最低" + tomorrowForecastBean.getTempNight() + "℃");
-                                tomorrowWeatherText.setText(tomorrowForecastBean.getConditionDay() + "·" +
-                                        tomorrowForecastBean.getWindDirDay() + "·"
-                                        + tomorrowForecastBean.getWindLevelDay());
-                                WeatherUtils.setTommorwWeatherIcon(tomorrowImage,tomorrowForecastBean.getConditionIdDay());
-                            }
-                        });
-                    }
-                });
-
-                WeatherHttp.getInstance().getNowWeahter(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
-                    @Override
-                    public void onFailure(ApiRequest apiRequest, Exception e) {
-
-                    }
-
-                    @Override
-                    public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
-                        String body = new String(apiResponse.getBody(), SdkConstant.CLOUDAPI_ENCODING);
-                        Gson gson = new Gson();
-                        NowWeahterBean nowWeahterBean = gson.fromJson(body, NowWeahterBean.class);
-                        NowWeahterBean.DataBean.ConditionBean conditionBean = nowWeahterBean.getData().getCondition();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                currentTemperature.setText(conditionBean.getHumidity() + "℃/");
-                                todayWeatherText.setText(conditionBean.getCondition() + "·" +
-                                        conditionBean.getWindDir() + "·"
-                                        + conditionBean.getWindLevel());
-
-                                WeatherUtils.setTodayWeatherIcon(tomorrowImage,conditionBean.getConditionId());
-                            }
-                        });
-
-                    }
-                });
+                setWeatherInfo(cityBean);
             }
         };
         mMLocationClient.setLocationListener(mLocationListener);
@@ -167,6 +144,68 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
         mLocationOption.setOnceLocation(true);
         mMLocationClient.setLocationOption(mLocationOption);
         mMLocationClient.startLocation();
+    }
+
+    public void setWeatherInfo(CityBean cityBean) {
+        citySelect.setText(cityBean.getCity()+"->");
+        WeatherHttp.getInstance().getFifteenWeahter(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
+            @Override
+            public void onFailure(ApiRequest apiRequest, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
+                String body = new String(apiResponse.getBody(), SdkConstant.CLOUDAPI_ENCODING);
+                Gson gson = new Gson();
+                FifteenWeahterBean fifteenWeahterBean = gson.fromJson(body, FifteenWeahterBean.class);
+                data = fifteenWeahterBean.getData();
+                list = data.getForecast();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        FifteenWeahterBean.DataBean.ForecastBean todayForecastBean = list.get(1);
+                        todayHeightFeel.setText("最高" + todayForecastBean.getTempDay() + "℃");
+                        todayLowFeel.setText("最低" + todayForecastBean.getTempNight() + "℃");
+
+                        FifteenWeahterBean.DataBean.ForecastBean tomorrowForecastBean = list.get(2);
+                        tomorrowHeight.setText("最高" + tomorrowForecastBean.getTempDay() + "℃");
+                        tomorrowLow.setText("最低" + tomorrowForecastBean.getTempNight() + "℃");
+                        tomorrowWeatherText.setText(tomorrowForecastBean.getConditionDay() + "·" +
+                                tomorrowForecastBean.getWindDirDay() + "·"
+                                + tomorrowForecastBean.getWindLevelDay());
+                        WeatherUtils.setTommorwWeatherIcon(tomorrowImage, tomorrowForecastBean.getConditionIdDay());
+                    }
+                });
+            }
+        });
+
+        WeatherHttp.getInstance().getNowWeahter(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
+            @Override
+            public void onFailure(ApiRequest apiRequest, Exception e) {
+
+            }
+
+            @Override
+            public void onResponse(ApiRequest apiRequest, ApiResponse apiResponse) {
+                String body = new String(apiResponse.getBody(), SdkConstant.CLOUDAPI_ENCODING);
+                Gson gson = new Gson();
+                NowWeahterBean nowWeahterBean = gson.fromJson(body, NowWeahterBean.class);
+                NowWeahterBean.DataBean.ConditionBean conditionBean = nowWeahterBean.getData().getCondition();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentTemperature.setText(conditionBean.getTemp() + "℃/");
+                        todayWeatherText.setText(conditionBean.getCondition() + "·" +
+                                conditionBean.getWindDir() + "·"
+                                + conditionBean.getWindLevel());
+
+                        WeatherUtils.setTodayWeatherIcon(todayWeatherImage, conditionBean.getConditionId());
+                    }
+                });
+
+            }
+        });
     }
 
     @Override

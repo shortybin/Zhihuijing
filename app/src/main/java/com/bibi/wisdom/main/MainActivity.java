@@ -72,6 +72,7 @@ public class MainActivity extends MVPBaseActivity<MainContract.View, MainPresent
             tabHost.setTag(i);
         }
 
+        tabHost.setCurrentTab(2);
     }
 
 

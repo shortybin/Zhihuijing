@@ -84,6 +84,8 @@
             android:name=".main.maintain.maintainlist.MaintainListActivity"
             android:screenOrientation="portrait" />
         <activity android:name="com.bibi.wisdom.ProMosaicActivity"></activity>
+        <activity android:name=".CityListActivity"/>
+        <activity android:name=".FifteenWeahterActivity"/>
 
 
         <service android:name="com.amap.api.location.APSService"></service>
