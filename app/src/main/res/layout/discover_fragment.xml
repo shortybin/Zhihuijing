@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_18"
-            android:text="未来5天天气->"
+            android:text="未来15天天气->"
             android:padding="5dp"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_12"

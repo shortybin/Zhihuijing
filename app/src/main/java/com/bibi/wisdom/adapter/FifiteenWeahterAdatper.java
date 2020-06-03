@@ -19,7 +19,8 @@ public class FifiteenWeahterAdatper extends CommonRecyclerAdapter<FifteenWeahter
         holder.setTextViewText(R.id.time_text, s[0] + " " + s1);
         holder.setTextViewText(R.id.height_text, "最高" + forecastBean.getTempDay() + "℃");
         holder.setTextViewText(R.id.low_text, "最低" + forecastBean.getTempNight() + "℃");
-        holder.setTextViewText(R.id.humidity_text, "湿度" + forecastBean.getWindDirDay());
+        //holder.setTextViewText(R.id.humidity_text, "湿度" + forecastBean.getHumidity());
+        holder.setTextViewText(R.id.weather_text,forecastBean.getConditionDay());
         WeatherUtils.setTommorwWeatherIcon(holder.getView(R.id.weather_image), forecastBean.getConditionIdDay());
     }
 }

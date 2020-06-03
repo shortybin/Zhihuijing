@@ -204,6 +204,15 @@ public class FifteenWeahterBean implements Parcelable {
             private String windLevelNight;
             private String windSpeedDay;
             private String windSpeedNight;
+            private String humidity;
+
+            public String getHumidity() {
+                return humidity;
+            }
+
+            public void setHumidity(String humidity) {
+                this.humidity = humidity;
+            }
 
             public String getConditionDay() {
                 return conditionDay;

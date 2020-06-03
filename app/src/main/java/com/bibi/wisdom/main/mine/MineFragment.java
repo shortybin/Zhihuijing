@@ -98,6 +98,26 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (!UserService.isLogin()) {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            if (!UserService.isLogin()) {
+                startActivity(new Intent(getActivity(), LoginActivity.class));
+                getActivity().finish();
+            }
+        }
+    }
+
+    @Override
     public void logoutSuccess() {
         UserService.logout();
         Intent intent = new Intent(getContext(), LoginActivity.class);
@@ -126,7 +146,7 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
 
     @Override
     public void getDeviceSuccess(DeviceListBean bean) {
-        if (bean.getUserproductlist().size()>0){
+        if (bean.getUserproductlist().size() > 0) {
             CommonDialog commonDialog = new CommonDialog(getActivity(), "提示", "注销用户前，请先移除设备列表中的所有设备", "取消", "确定", null, new CommonDialog.CallBackListener() {
                 @Override
                 public void callBack() {
@@ -135,14 +155,14 @@ public class MineFragment extends MVPBaseFragment<MineContract.View, MinePresent
             });
 
             commonDialog.show();
-        }else{
+        } else {
             delectDialog();
         }
     }
 
     @Override
     public void getDeviceFail(String message) {
-        ToastUtil.showToast(getContext(),message);
+        ToastUtil.showToast(getContext(), message);
     }
 
 

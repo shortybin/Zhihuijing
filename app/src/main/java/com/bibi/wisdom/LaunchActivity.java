@@ -21,23 +21,12 @@ public class LaunchActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if (UserService.isLogin()) {
-                startActivity(new Intent(LaunchActivity.this, MainActivity.class));
-            } else {
-                startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
-//                LoginBusiness.login(new ILoginCallback() {
-//                    @Override
-//                    public void onLoginSuccess() {
-//                        startActivity(new Intent(LaunchActivity.this, MainActivity.class));
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onLoginFailed(int i, String s) {
-//                        LogUtils.d("onLoginFailed: 登陆失败");
-//                    }
-//                });
-            }
+//            if (UserService.isLogin()) {
+//                startActivity(new Intent(LaunchActivity.this, MainActivity.class));
+//            } else {
+//                startActivity(new Intent(LaunchActivity.this, LoginActivity.class));
+//            }
+            startActivity(new Intent(LaunchActivity.this, MainActivity.class));
             finish();
         }
     };
