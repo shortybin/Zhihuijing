@@ -86,6 +86,8 @@
         <activity android:name="com.bibi.wisdom.ProMosaicActivity"></activity>
         <activity android:name=".CityListActivity"/>
         <activity android:name=".FifteenWeahterActivity"/>
+        <activity android:name=".ToolActivity"/>
+
 
 
         <service android:name="com.amap.api.location.APSService"></service>

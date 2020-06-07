@@ -14,16 +14,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:src="@drawable/ic_arrow_back_white" />
+
         <TextView
             android:id="@+id/tv_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:paddingBottom="10dp"
+            android:layout_marginBottom="@dimen/dp_10"
             android:text="工具"
-            android:textSize="@dimen/dp_17"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/dp_17" />
     </RelativeLayout>
 
 

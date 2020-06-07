@@ -12,6 +12,7 @@ import com.bibi.wisdom.bean.FifteenWeahterBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class FifteenWeahterActivity extends AppCompatActivity {
 
@@ -37,5 +38,10 @@ public class FifteenWeahterActivity extends AppCompatActivity {
         data = getIntent().getParcelableExtra("data");
         data.getForecast().remove(0);
         fifiteenWeahterAdatper.addData(data.getForecast());
+    }
+
+    @OnClick(R.id.iv_back)
+    public void onViewClicked() {
+        finish();
     }
 }

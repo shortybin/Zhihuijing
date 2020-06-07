@@ -87,4 +87,7 @@ public interface ApiService {
     //重置密码
     @POST("user/forgetbysv")
     Observable<BaseBean> resetPassword(@Query("phone") String phone, @Query("pwd") String password, @Query("random") String captcha);
+
+    @POST("/well/qurey/getVegInfo")
+    Observable<String> getVegetablesInfo (@Query("addressCode") String address);
 }

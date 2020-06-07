@@ -1,9 +1,16 @@
 package com.bibi.wisdom.main.discover;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +36,7 @@ import com.bibi.wisdom.network.weather.WeatherHttp;
 import com.bibi.wisdom.utils.CityUtils;
 import com.bibi.wisdom.utils.WeatherUtils;
 import com.google.gson.Gson;
+import com.vondear.rxtool.view.RxToast;
 
 import java.util.List;
 
@@ -75,11 +83,15 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     TextView tomorrowWeatherText;
     @BindView(R.id.today_weather_image)
     ImageView todayWeatherImage;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     private AMapLocationClient mMLocationClient;
     private List<FifteenWeahterBean.DataBean.ForecastBean> list;
     private FifteenWeahterBean.DataBean data;
-
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
 
     @Override
     protected int getContentViewLayoutID() {
@@ -88,6 +100,9 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
 
     @Override
     protected void init() {
+        ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 100);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         locationInit();
         citySelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,7 +162,7 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     }
 
     public void setWeatherInfo(CityBean cityBean) {
-        citySelect.setText(cityBean.getCity()+"->");
+        citySelect.setText(cityBean.getCity() + "->");
         WeatherHttp.getInstance().getFifteenWeahter(cityBean.getLat(), cityBean.getLon(), new ApiCallback() {
             @Override
             public void onFailure(ApiRequest apiRequest, Exception e) {
@@ -226,5 +241,21 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        for (int i = 0; i < permissions.length; i++) {
+            String permission=permissions[i];
+            if(TextUtils.equals(permission,Manifest.permission.ACCESS_FINE_LOCATION)){
+                if(grantResults[i]== PackageManager.PERMISSION_GRANTED){
+
+                }else {
+                    RxToast.showToast("需要定位权限");
+                }
+            }
+        }
+
     }
 }

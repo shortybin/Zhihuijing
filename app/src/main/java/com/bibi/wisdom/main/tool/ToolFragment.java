@@ -35,8 +35,8 @@ import butterknife.Unbinder;
 
 public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresenter> implements ToolContract.View {
 
-    public static final int TYPE_START=111;
-    public static final int TYPE_END=112;
+    public static final int TYPE_START = 111;
+    public static final int TYPE_END = 112;
 
     @BindView(R.id.tv_date_start)
     TextView tvDateStart;
@@ -85,41 +85,44 @@ public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresent
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.tv_commit})
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.tv_commit, R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_date_start:
                 showPicker(TYPE_START);
                 break;
             case R.id.tv_date_end:
-                if(startDate==null){
-                    ToastUtil.showToast(getActivity(),"请先选择开始时间");
+                if (startDate == null) {
+                    ToastUtil.showToast(getActivity(), "请先选择开始时间");
                     return;
                 }
                 showPicker(TYPE_END);
                 break;
             case R.id.tv_commit:
-                if(checkDate()){
+                if (checkDate()) {
                     calculateCost();
                 }
+                break;
+            case R.id.iv_back:
+                getActivity().finish();
                 break;
         }
     }
 
 
-    private boolean checkDate(){
-        price=tvPrice.getText().toString();
-        if(startDate==null){
-            ToastUtil.showToast(getActivity(),"开始日期不能为空");
+    private boolean checkDate() {
+        price = tvPrice.getText().toString();
+        if (startDate == null) {
+            ToastUtil.showToast(getActivity(), "开始日期不能为空");
             return false;
         }
 
-        if(endDate==null){
-            ToastUtil.showToast(getActivity(),"结束日期不能为空");
+        if (endDate == null) {
+            ToastUtil.showToast(getActivity(), "结束日期不能为空");
             return false;
         }
-        if(TextUtils.isEmpty(price)){
-            ToastUtil.showToast(getActivity(),"单价不能为空");
+        if (TextUtils.isEmpty(price)) {
+            ToastUtil.showToast(getActivity(), "单价不能为空");
             return false;
         }
 
@@ -128,49 +131,49 @@ public class ToolFragment extends MVPBaseFragment<ToolContract.View, ToolPresent
     }
 
 
-    private void calculateCost(){
-        long duration=endDate.getTime()-startDate.getTime();
+    private void calculateCost() {
+        long duration = endDate.getTime() - startDate.getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");//初始化Formatter的转换格式。
         String hms = formatter.format(new Date(duration));
 
-        String[] time =hms.split(":");
-        int hours= Integer.parseInt(time[0]);
-        int minutes=Integer.parseInt(time[1]);
-        int seconds=Integer.parseInt(time[2]);
+        String[] time = hms.split(":");
+        int hours = Integer.parseInt(time[0]);
+        int minutes = Integer.parseInt(time[1]);
+        int seconds = Integer.parseInt(time[2]);
 
 
-        BigDecimal b1 = new BigDecimal((Double.valueOf(price)/3600));
-        BigDecimal b2 = new BigDecimal(duration/1000);
+        BigDecimal b1 = new BigDecimal((Double.valueOf(price) / 3600));
+        BigDecimal b2 = new BigDecimal(duration / 1000);
 
-        totalCost=b1.multiply(b2).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue();
+        totalCost = b1.multiply(b2).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        if (hours>0){
-            tvDuration.setText("使用时长："+hours+"小时"+minutes+"分钟"+seconds+"秒");
-        }else if (minutes>0){
-            tvDuration.setText("使用时长："+minutes+"分钟"+seconds+"秒");
-        }else{
-            tvDuration.setText("使用时长："+seconds+"秒");
+        if (hours > 0) {
+            tvDuration.setText("使用时长：" + hours + "小时" + minutes + "分钟" + seconds + "秒");
+        } else if (minutes > 0) {
+            tvDuration.setText("使用时长：" + minutes + "分钟" + seconds + "秒");
+        } else {
+            tvDuration.setText("使用时长：" + seconds + "秒");
         }
-        tvCost.setText("账单金额："+totalCost+"元");
+        tvCost.setText("账单金额：" + totalCost + "元");
         DeviceUtils.hideSoftInput(getActivity());
     }
 
 
-    private void showPicker(final int type){
+    private void showPicker(final int type) {
         //时间选择器
         TimePickerView pvTime = new TimePickerView.Builder(getActivity(), new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                if(type==TYPE_START){
-                    startDate=date;
+                if (type == TYPE_START) {
+                    startDate = date;
                     tvDateStart.setText(RxTimeTool.date2String(date));
-                }else {
-                    if(date.getTime()<=startDate.getTime()){
-                        ToastUtil.showToast(getActivity(),"结束时间不能小于开始时间");
+                } else {
+                    if (date.getTime() <= startDate.getTime()) {
+                        ToastUtil.showToast(getActivity(), "结束时间不能小于开始时间");
                         return;
                     }
 
-                    endDate=date;
+                    endDate = date;
                     tvDateEnd.setText(RxTimeTool.date2String(date));
                 }
 
