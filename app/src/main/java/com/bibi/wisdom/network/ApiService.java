@@ -10,6 +10,10 @@ import com.bibi.wisdom.bean.UserLoginBean;
 import com.bibi.wisdom.bean.base.BaseBean;
 
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -89,5 +93,5 @@ public interface ApiService {
     Observable<BaseBean> resetPassword(@Query("phone") String phone, @Query("pwd") String password, @Query("random") String captcha);
 
     @POST("/well/qurey/getVegInfo")
-    Observable<String> getVegetablesInfo (@Query("addressCode") String address);
+    Observable<String> getVegetablesInfo (@Body RequestBody requestBody);
 }

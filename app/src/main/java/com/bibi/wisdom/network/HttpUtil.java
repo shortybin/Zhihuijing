@@ -8,15 +8,21 @@ import com.bibi.wisdom.utils.DeviceUtils;
 import com.bibi.wisdom.utils.UserService;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -117,6 +123,27 @@ public class HttpUtil {
 
         }
         return SERVICE;
+    }
+
+    public static RequestBody getRequestBody(Map<String, String> hashMap) {
+        StringBuffer data = new StringBuffer();
+        JSONObject result = new JSONObject();
+        if (hashMap != null && hashMap.size() > 0) {
+            Iterator iter = hashMap.entrySet().iterator();
+            while (iter.hasNext()) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                String key = (String) entry.getKey();
+                String val = (String) entry.getValue();
+                try {
+                    result.put(key, val);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),result.toString());
+
+        return requestBody;
     }
 
 

@@ -8,9 +8,11 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +34,25 @@ import com.bibi.wisdom.bean.CityBean;
 import com.bibi.wisdom.bean.FifteenWeahterBean;
 import com.bibi.wisdom.bean.NowWeahterBean;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
+import com.bibi.wisdom.network.HttpUtil;
+import com.bibi.wisdom.network.SubscribeHandler;
+import com.bibi.wisdom.network.rxjava.ProgressSubscriber;
+import com.bibi.wisdom.network.rxjava.SubscriberOnNextListener;
 import com.bibi.wisdom.network.weather.WeatherHttp;
 import com.bibi.wisdom.utils.CityUtils;
+import com.bibi.wisdom.utils.LogUtils;
 import com.bibi.wisdom.utils.WeatherUtils;
 import com.google.gson.Gson;
 import com.vondear.rxtool.view.RxToast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.Observable;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -101,7 +111,7 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     @Override
     protected void init() {
         ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 100);
-
+        getVegetablesInfo("");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         locationInit();
         citySelect.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +149,7 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
             public void onLocationChanged(AMapLocation aMapLocation) {
                 CityBean cityBean = null;
                 if (aMapLocation != null) {
-                    if (aMapLocation.getErrorCode() == 0) {
+                    if (aMapLocation.getErrorCode() == 0 && !TextUtils.isEmpty(aMapLocation.getCity())&&!TextUtils.isEmpty(aMapLocation.getCityCode())) {
                         String city = aMapLocation.getCity();
                         cityBean = CityUtils.cityInfo(getContext(), city);
                     } else {
@@ -247,15 +257,40 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         for (int i = 0; i < permissions.length; i++) {
-            String permission=permissions[i];
-            if(TextUtils.equals(permission,Manifest.permission.ACCESS_FINE_LOCATION)){
-                if(grantResults[i]== PackageManager.PERMISSION_GRANTED){
+            String permission = permissions[i];
+            if (TextUtils.equals(permission, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
 
-                }else {
+                } else {
                     RxToast.showToast("需要定位权限");
                 }
             }
         }
+    }
 
+    public void getVegetablesInfo(String addressCode) {
+        Map map=new HashMap<String,String>();
+        map.put("addressCode","010110000");
+        map.put("latitude","");
+        map.put("longitude","");
+        map.put("newsDate","20200607");
+        map.put("productCode","");
+        map.put("typeCode","001");
+
+
+
+        Observable<String> vegetablesInfo = HttpUtil.getInstance().getVegetablesInfo(HttpUtil.getRequestBody(map));
+        SubscriberOnNextListener<String> listener = new SubscriberOnNextListener<String>() {
+            @Override
+            public void onNext(String s) {
+                LogUtils.d("打印信息" + s);
+            }
+
+            @Override
+            public void onFail(String err) {
+                LogUtils.d("打印信息" + err);
+            }
+        };
+        SubscribeHandler.observeOn(vegetablesInfo, new ProgressSubscriber(listener, getActivity(), false));
     }
 }
