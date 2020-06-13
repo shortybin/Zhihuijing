@@ -17,12 +17,20 @@ public class BaseBean<T> implements Serializable {
 
 
     private T data;
+    private T datas;
 
     private T subjects;
 
 
     private T images;
 
+    public T getDatas() {
+        return datas;
+    }
+
+    public void setDatas(T datas) {
+        this.datas = datas;
+    }
 
     public int getStatus() {
         return status;

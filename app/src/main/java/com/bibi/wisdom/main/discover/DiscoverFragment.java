@@ -30,9 +30,12 @@ import com.amap.api.location.AMapLocationListener;
 import com.bibi.wisdom.CityListActivity;
 import com.bibi.wisdom.FifteenWeahterActivity;
 import com.bibi.wisdom.R;
+import com.bibi.wisdom.adapter.VegetablesAdapter;
 import com.bibi.wisdom.bean.CityBean;
 import com.bibi.wisdom.bean.FifteenWeahterBean;
 import com.bibi.wisdom.bean.NowWeahterBean;
+import com.bibi.wisdom.bean.VegetablesBean;
+import com.bibi.wisdom.bean.base.BaseBean;
 import com.bibi.wisdom.mvp.MVPBaseFragment;
 import com.bibi.wisdom.network.HttpUtil;
 import com.bibi.wisdom.network.SubscribeHandler;
@@ -102,6 +105,7 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     static final String[] PERMISSIONS = new String[]{
             Manifest.permission.ACCESS_FINE_LOCATION
     };
+    private VegetablesAdapter vegetablesAdapter;
 
     @Override
     protected int getContentViewLayoutID() {
@@ -113,6 +117,8 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
         ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 100);
         getVegetablesInfo("");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        vegetablesAdapter = new VegetablesAdapter(getContext());
+        recyclerView.setAdapter(vegetablesAdapter);
         locationInit();
         citySelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -277,12 +283,12 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
         map.put("productCode","");
         map.put("typeCode","001");
 
-
-
-        Observable<String> vegetablesInfo = HttpUtil.getInstance().getVegetablesInfo(HttpUtil.getRequestBody(map));
-        SubscriberOnNextListener<String> listener = new SubscriberOnNextListener<String>() {
+        Observable<BaseBean<List<VegetablesBean>>> vegetablesInfo = HttpUtil.getInstance().getVegetablesInfo(HttpUtil.getRequestBody(map));
+        SubscriberOnNextListener<List<VegetablesBean>> listener = new SubscriberOnNextListener<List<VegetablesBean>>() {
             @Override
-            public void onNext(String s) {
+            public void onNext(List<VegetablesBean> s) {
+                vegetablesAdapter.getData().clear();
+                vegetablesAdapter.addData(s);
                 LogUtils.d("打印信息" + s);
             }
 

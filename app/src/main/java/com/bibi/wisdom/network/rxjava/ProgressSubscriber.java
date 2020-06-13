@@ -85,8 +85,14 @@ public class ProgressSubscriber<T extends BaseBean> implements
          * 这里的话是通过success 或者 code 来判断 可惜豆辫放回数据没有这个字段 就只能通多count来判断了
          */
         if (mSubscriberOnNextListener != null && t.getStatus() == 101) {
-            if (t.getData() == null)
+            if (t.getData() == null&&t.getDatas()!=null){
+                mSubscriberOnNextListener.onNext(t.getDatas());
+                return;
+            }
+            if (t.getDatas()==null){
                 t.setData(new Object());
+            }
+
             mSubscriberOnNextListener.onNext(t.getData());
         } else if (t.getStatus() == 601) {  //登录过期
             onFail(t);

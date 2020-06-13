@@ -4,6 +4,7 @@ import com.bibi.wisdom.BuildConfig;
 import com.bibi.wisdom.app.BaseApplication;
 import com.bibi.wisdom.bean.UserLoginBean;
 import com.bibi.wisdom.network.interceptor.LoggerInterceptor;
+import com.bibi.wisdom.network.interceptor.MoreBaseUrlInterceptor;
 import com.bibi.wisdom.utils.DeviceUtils;
 import com.bibi.wisdom.utils.UserService;
 
@@ -104,6 +105,7 @@ public class HttpUtil {
 
                 }
             });
+            httpClientBuilder.addInterceptor(new MoreBaseUrlInterceptor());
 
             if (BuildConfig.DEBUG) {
                 /**
