@@ -43,6 +43,7 @@ import com.bibi.wisdom.network.rxjava.ProgressSubscriber;
 import com.bibi.wisdom.network.rxjava.SubscriberOnNextListener;
 import com.bibi.wisdom.network.weather.WeatherHttp;
 import com.bibi.wisdom.utils.CityUtils;
+import com.bibi.wisdom.utils.DateUtils;
 import com.bibi.wisdom.utils.LogUtils;
 import com.bibi.wisdom.utils.WeatherUtils;
 import com.google.gson.Gson;
@@ -115,7 +116,6 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     @Override
     protected void init() {
         ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 100);
-        getVegetablesInfo("");
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         vegetablesAdapter = new VegetablesAdapter(getContext());
         recyclerView.setAdapter(vegetablesAdapter);
@@ -154,9 +154,11 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 CityBean cityBean = null;
+                String addressCode="010110000";
                 if (aMapLocation != null) {
-                    if (aMapLocation.getErrorCode() == 0 && !TextUtils.isEmpty(aMapLocation.getCity())&&!TextUtils.isEmpty(aMapLocation.getCityCode())) {
+                    if (aMapLocation.getErrorCode() == 0 && !TextUtils.isEmpty(aMapLocation.getCity()) && !TextUtils.isEmpty(aMapLocation.getCityCode())) {
                         String city = aMapLocation.getCity();
+                        addressCode=aMapLocation.getCityCode()+aMapLocation.getAdCode();
                         cityBean = CityUtils.cityInfo(getContext(), city);
                     } else {
                         cityBean = CityUtils.cityInfo(getContext(), "北京市");
@@ -164,6 +166,9 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
                 } else {
                     cityBean = CityUtils.cityInfo(getContext(), "北京市");
                 }
+
+                getVegetablesInfo(addressCode);
+                vegetablesAdapter.setAddress(cityBean.getCity());
                 setWeatherInfo(cityBean);
             }
         };
@@ -275,13 +280,13 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     }
 
     public void getVegetablesInfo(String addressCode) {
-        Map map=new HashMap<String,String>();
-        map.put("addressCode","010110000");
-        map.put("latitude","");
-        map.put("longitude","");
-        map.put("newsDate","20200607");
-        map.put("productCode","");
-        map.put("typeCode","001");
+        Map map = new HashMap<String, String>();
+        map.put("addressCode", addressCode);
+        map.put("latitude", "");
+        map.put("longitude", "");
+        map.put("newsDate", DateUtils.getCurrentTime());
+        map.put("productCode", "");
+        map.put("typeCode", "001");
 
         Observable<BaseBean<List<VegetablesBean>>> vegetablesInfo = HttpUtil.getInstance().getVegetablesInfo(HttpUtil.getRequestBody(map));
         SubscriberOnNextListener<List<VegetablesBean>> listener = new SubscriberOnNextListener<List<VegetablesBean>>() {

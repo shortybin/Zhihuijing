@@ -337,4 +337,11 @@ public class DateUtils {
             w = 0;
         return weekDays[w];
     }
+
+    public static String getCurrentTime(){
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+        sdf.applyPattern("yyyyMMdd");// a为am/pm的标记
+        Date date = new Date();// 获取当前时间
+       return sdf.format(date);
+    }
 }
