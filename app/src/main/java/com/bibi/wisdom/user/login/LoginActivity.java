@@ -69,7 +69,6 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
 
     private void initView() {
         tvTopTitle.setText("登录");
-        ivBack.setVisibility(View.INVISIBLE);
     }
 
     @Override

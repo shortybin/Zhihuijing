@@ -89,7 +89,7 @@ public class ProgressSubscriber<T extends BaseBean> implements
                 mSubscriberOnNextListener.onNext(t.getDatas());
                 return;
             }
-            if (t.getDatas()==null){
+            if (t.getData()==null){
                 t.setData(new Object());
             }
 
