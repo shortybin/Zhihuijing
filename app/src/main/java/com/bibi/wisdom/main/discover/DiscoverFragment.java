@@ -3,12 +3,14 @@ package com.bibi.wisdom.main.discover;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -99,6 +101,8 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     ImageView todayWeatherImage;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     private AMapLocationClient mMLocationClient;
     private List<FifteenWeahterBean.DataBean.ForecastBean> list;
@@ -116,6 +120,22 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
     @Override
     protected void init() {
         ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, 100);
+
+        mSwipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED);
+        // 设置手指在屏幕下拉多少距离会触发下拉刷新
+        mSwipeRefreshLayout.setDistanceToTriggerSync(300);
+        // 设定下拉圆圈的背景
+        mSwipeRefreshLayout.setProgressBackgroundColorSchemeColor(Color.WHITE);
+        // 设置圆圈的大小
+        mSwipeRefreshLayout.setSize(SwipeRefreshLayout.LARGE);
+        //设置下拉刷新的监听
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                locationInit();
+            }
+        });
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         vegetablesAdapter = new VegetablesAdapter(getContext());
         recyclerView.setAdapter(vegetablesAdapter);
@@ -154,11 +174,11 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
             @Override
             public void onLocationChanged(AMapLocation aMapLocation) {
                 CityBean cityBean = null;
-                String addressCode="010110000";
+                String addressCode = "010110000";
                 if (aMapLocation != null) {
                     if (aMapLocation.getErrorCode() == 0 && !TextUtils.isEmpty(aMapLocation.getCity()) && !TextUtils.isEmpty(aMapLocation.getCityCode())) {
                         String city = aMapLocation.getCity();
-                        addressCode=aMapLocation.getCityCode()+aMapLocation.getAdCode();
+                        addressCode = aMapLocation.getCityCode() + aMapLocation.getAdCode();
                         cityBean = CityUtils.cityInfo(getContext(), city);
                     } else {
                         cityBean = CityUtils.cityInfo(getContext(), "北京市");
@@ -292,9 +312,9 @@ public class DiscoverFragment extends MVPBaseFragment<DiscoverContract.View, Dis
         SubscriberOnNextListener<List<VegetablesBean>> listener = new SubscriberOnNextListener<List<VegetablesBean>>() {
             @Override
             public void onNext(List<VegetablesBean> s) {
+                mSwipeRefreshLayout.setRefreshing(false);
                 vegetablesAdapter.getData().clear();
                 vegetablesAdapter.addData(s);
-                LogUtils.d("打印信息" + s);
             }
 
             @Override

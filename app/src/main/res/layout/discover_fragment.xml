@@ -1,218 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/top_layout"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2196F3"
-        android:paddingTop="@dimen/dp_25"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/city_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_18"
-            android:layout_marginTop="@dimen/dp_10"
-            android:padding="5dp"
-            android:text="切换城市"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/future_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_18"
-            android:padding="5dp"
-            android:text="未来15天天气->"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/today_weather"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_23"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather"
-            app:layout_constraintTop_toBottomOf="@+id/city_select">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/today_weather_image"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/top_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginRight="@dimen/dp_10"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="#2196F3"
+                android:paddingTop="@dimen/dp_25"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/now_weather_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="实时天气"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/city_select"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:padding="5dp"
+                    android:text="切换城市"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="233重度"
-                android:textColor="@color/white"
-                android:textSize="8dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/now_weather_title"
-                app:layout_constraintLeft_toRightOf="@+id/now_weather_title" />
+                <TextView
+                    android:id="@+id/future_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:padding="5dp"
+                    android:text="未来15天天气->"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/current_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_5"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/now_weather_title" />
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/today_weather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_23"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_weight="3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather"
+                    app:layout_constraintTop_toBottomOf="@+id/city_select">
 
-            <TextView
-                android:id="@+id/today_height_feel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintLeft_toRightOf="@+id/current_temperature"
-                app:layout_constraintTop_toTopOf="@+id/current_temperature" />
+                    <ImageView
+                        android:id="@+id/today_weather_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_10"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/today_low_feel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintBottom_toBottomOf="@+id/current_temperature"
-                app:layout_constraintLeft_toRightOf="@+id/current_temperature" />
+                    <TextView
+                        android:id="@+id/now_weather_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="实时天气"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/today_weather_text"
-                android:layout_width="0dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="233重度"
+                        android:textColor="@color/white"
+                        android:textSize="8dp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toTopOf="@+id/now_weather_title"
+                        app:layout_constraintLeft_toRightOf="@+id/now_weather_title" />
+
+                    <TextView
+                        android:id="@+id/current_temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_5"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/now_weather_title" />
+
+                    <TextView
+                        android:id="@+id/today_height_feel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        app:layout_constraintLeft_toRightOf="@+id/current_temperature"
+                        app:layout_constraintTop_toTopOf="@+id/current_temperature" />
+
+                    <TextView
+                        android:id="@+id/today_low_feel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        app:layout_constraintBottom_toBottomOf="@+id/current_temperature"
+                        app:layout_constraintLeft_toRightOf="@+id/current_temperature" />
+
+                    <TextView
+                        android:id="@+id/today_weather_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/current_temperature" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <View
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/today_weather"
+                    app:layout_constraintLeft_toRightOf="@+id/today_weather"
+                    app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather"
+                    app:layout_constraintTop_toTopOf="@+id/today_weather" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/tomorrow_weather"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintLeft_toRightOf="@+id/today_weather"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/future_weather">
+
+                    <ImageView
+                        android:id="@+id/tomorrow_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp_23"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tomorrow_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:text="明天"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tomorrow_height"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tomorrow_text" />
+
+                    <TextView
+                        android:id="@+id/tomorrow_low"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_14"
+                        app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                        app:layout_constraintTop_toBottomOf="@+id/tomorrow_height" />
+
+                    <TextView
+                        android:id="@+id/tomorrow_weather_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_13"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="@dimen/dp_20"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tomorrow_low" />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <include
+                android:id="@+id/recycler_top"
+                layout="@layout/vegetables_item"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_20"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/top_layout" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/current_temperature" />
+                app:layout_constraintTop_toBottomOf="@+id/recycler_top" />
 
         </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="0dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/today_weather"
-            app:layout_constraintLeft_toRightOf="@+id/today_weather"
-            app:layout_constraintRight_toLeftOf="@+id/tomorrow_weather"
-            app:layout_constraintTop_toTopOf="@+id/today_weather" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/tomorrow_weather"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintLeft_toRightOf="@+id/today_weather"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/future_weather">
-
-            <ImageView
-                android:id="@+id/tomorrow_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dp_23"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tomorrow_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_12"
-                android:layout_marginTop="@dimen/dp_10"
-                android:text="明天"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tomorrow_height"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_13"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
-                app:layout_constraintTop_toBottomOf="@+id/tomorrow_text" />
-
-            <TextView
-                android:id="@+id/tomorrow_low"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_14"
-                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
-                app:layout_constraintTop_toBottomOf="@+id/tomorrow_height" />
-
-            <TextView
-                android:id="@+id/tomorrow_weather_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_13"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="@dimen/dp_20"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="@+id/tomorrow_text"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tomorrow_low" />
-
-        </android.support.constraint.ConstraintLayout>
-    </android.support.constraint.ConstraintLayout>
-
-    <include
-        android:id="@+id/recycler_top"
-        layout="@layout/vegetables_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/top_layout" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_top" />
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
