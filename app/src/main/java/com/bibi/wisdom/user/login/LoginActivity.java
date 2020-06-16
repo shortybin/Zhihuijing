@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -120,7 +121,8 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
-                onBackPressed();
+                finish();
+                goPage(MainActivity.class);
                 break;
             case R.id.tv_commit:
                 if (checkData()) {
@@ -144,5 +146,14 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
             case R.id.user_protocol:
                 startActivity(new Intent(getContext(), WebPageActivity.class).putExtra("url", "http://www.huahuazn.com/RegisterProtocol.html"));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            goPage(MainActivity.class);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

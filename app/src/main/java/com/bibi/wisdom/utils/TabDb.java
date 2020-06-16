@@ -12,12 +12,12 @@ public class TabDb {
 
 
     public static String[] getTabsTxt() {
-        String[] tabs = {"控制", "历史", "发现", "维护", "我的"};
+        String[] tabs = {"控制", "历史", "首页", "维护", "我的"};
         return tabs;
     }
 
     public static String[] getTabTitle() {
-        String[] tabs = {"控制", "历史", "发现", "维护", "我的"};
+        String[] tabs = {"控制", "历史", "首页", "维护", "我的"};
         return tabs;
     }
 
